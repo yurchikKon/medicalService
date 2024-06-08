@@ -31,6 +31,7 @@ public class DoctorsAppointment {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
+    @Enumerated
     private Status status;
 
     @ManyToMany

@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "patient")
 public class Patient extends User{
 
+    @Enumerated
     private Gender gender;
 
     @Column(name = "birth_date")

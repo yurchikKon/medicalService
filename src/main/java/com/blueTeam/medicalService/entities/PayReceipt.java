@@ -25,11 +25,14 @@ public class PayReceipt {
 
     private BigDecimal value;
 
+    @Enumerated
     private ReceiptStatus status;
 
     @Column(name = "payment_method")
+    @Enumerated
     private PaymentMethod paymentMethod;
 
     @Column(name = "type")
+    @Enumerated
     private PaymentType paymentType;
 }

@@ -24,6 +24,7 @@ public class User {
     private String lastName;
 
     @Column(name = "role")
+    @Enumerated
     private Role role;
 
     @Column(name = "phone_number")

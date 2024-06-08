@@ -24,6 +24,7 @@ public class DoctorTimetable {
     private Doctor doctor;
 
     @Column(name = "day_of_week")
+    @Enumerated
     private DayOfWeek dayOfWeek;
 
     @Column(name = "time_start")

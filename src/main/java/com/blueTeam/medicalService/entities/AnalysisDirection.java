@@ -25,8 +25,10 @@ public class AnalysisDirection {
     @JoinColumn(name = "analysis_id", referencedColumnName = "id")
     private Analysis analysis;
 
+    @Enumerated
     private DirectionStatus status;
 
+    @Enumerated
     private Usage usage;
 
     private String result;
