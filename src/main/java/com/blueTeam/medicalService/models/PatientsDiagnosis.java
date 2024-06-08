@@ -3,15 +3,12 @@ package com.blueTeam.medicalService.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.access.method.P;
-
-import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "medical_receipt")
-public class MedicalReceipt {
+@Table(name = "diagnosis")
+public class PatientsDiagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +20,6 @@ public class MedicalReceipt {
     private DoctorsAppointment doctorsAppointment;
 
     @OneToOne
-    @JoinColumn(name = "preparation_id", referencedColumnName = "id")
-    private Preparation preparation;
-
-    @Column(name = "date_end")
-    private LocalDate dateEnd;
-
-    }
+    @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
+    private Diagnosis diagnosis;
+}

@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "preparation_list")
-public class Preparation {
+@Table(name = "diagnosis")
+public class Diagnosis {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -16,7 +17,6 @@ public class Preparation {
 
     private String name;
 
-    @OneToOne(mappedBy = "preparation")
-    private MedicalReceipt medicalReceipt;
-
+    @OneToOne(mappedBy = "diagnosis")
+    private PatientsDiagnosis patientsDiagnosis;
 }

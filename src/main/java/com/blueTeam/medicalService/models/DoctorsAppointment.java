@@ -42,7 +42,7 @@ public class DoctorsAppointment {
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<SpecialDoctorDirection> directions;
 
-    @OneToOne(mappedBy = "appointment_doctor")
+    @OneToOne(mappedBy = "doctorsAppointment")
     private DoctorsRemark doctorsRemark;
 
     @OneToMany(mappedBy = "doctorsAppointment")
@@ -50,4 +50,13 @@ public class DoctorsAppointment {
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<MedicalReceipt> medicalReceipts;
+
+    @OneToOne(mappedBy = "doctorsAppointment")
+    private AppointmentReview appointmentReview;
+
+    @OneToMany(mappedBy = "doctorsAppointment")
+    private List<PatientsDiagnosis> patientsDiagnosisList;
+
+    @OneToMany(mappedBy = "doctorsAppointment")
+    private List<PayReceipt> payReceipts;
 }

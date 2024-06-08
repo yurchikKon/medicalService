@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "preparation_list")
-public class Preparation {
+@Table(name = "analysis_direction")
+public class AppointmentReview {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    private String name;
-
-    @OneToOne(mappedBy = "preparation")
-    private MedicalReceipt medicalReceipt;
+    @OneToOne
+    @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
+    private DoctorsAppointment doctorsAppointment;
 
 }
