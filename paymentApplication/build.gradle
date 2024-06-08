@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.blueTeam'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.liquibase:liquibase-core'
+}
+
+configurations {
+    compile.exclude group: 'org.flywaydb', module: 'flyway-core'
+}
+
+test {
+    useJUnitPlatform()
+}
