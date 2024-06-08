@@ -8,7 +8,7 @@ create table if not exists specialization_list
     name varchar(255) UNIQUE NOT NULL
 );
 
-create table if not exists usr
+create table if not exists users
 (
     id           bigserial primary key,
     first_name   varchar(30)  NOT NULL,
@@ -23,7 +23,7 @@ create table if not exists usr
 
 create table if not exists doctor
 (
-    id                bigserial primary key references usr (id),
+    id                bigserial primary key references users (id),
     specialization_id bigint,
     rate              numeric(3, 2),
     foreign key (specialization_id) references specialization_list (id)
@@ -32,7 +32,7 @@ create table if not exists doctor
 
 create table if not exists patient
 (
-    id         bigserial primary key references usr (id),
+    id         bigserial primary key references users (id),
     gender     gender_enum,
     birth_date DATE
 );
@@ -45,10 +45,10 @@ create table if not exists doctor_timetable
     time_end    time             NOT NULL,
     room_number int              NOT NULL,
     day_of_week day_of_week_enum NOT NULL,
-    foreign key (doctor_id) references usr (id)
+    foreign key (doctor_id) references users (id)
 );
 
-create type appointment_status_enum as enum ('scheduled', 'complete', 'canceled');
+create type appointment_status_enum as enum ('scheduled', 'completed', 'canceled');
 
 create table if not exists appointment_doctor
 (
@@ -57,8 +57,8 @@ create table if not exists appointment_doctor
     user_id   bigint,
     date_time timestamp               NOT NULL,
     status    appointment_status_enum NOT NULL,
-    foreign key (doctor_id) references usr (id),
-    foreign key (user_id) references usr (id)
+    foreign key (doctor_id) references users (id),
+    foreign key (user_id) references users (id)
 );
 
 create table if not exists diagnosis_list
@@ -112,7 +112,7 @@ create table if not exists medical_service
 (
     id   bigserial primary key,
     name varchar(255) NOT NULL UNIQUE,
-    cost int
+    cost decimal(10,2)
 );
 
 create table if not exists appointment_service
@@ -128,7 +128,7 @@ create table if not exists analysis_list
 (
     id   bigserial primary key,
     name varchar(255) NOT NULL UNIQUE,
-    cost int
+    cost decimal(10,2)
 );
 
 create type analysis_status_enum as enum ('valid', 'invalid');
@@ -163,7 +163,7 @@ create table if not exists pay_receipt
 (
     id                    bigserial primary key,
     appointment_doctor_id bigint,
-    value                 int,
+    value                 decimal(10,2),
     status                pay_receipt_status_enum,
     payment_method        payment_method_enum,
     type                  payment_type_enum,
@@ -176,7 +176,7 @@ values ('therapist'),
        ('orthopedist'),
        ('ophthalmologist');
 
-insert into usr(first_name, last_name, role, phone_number, address, login, password, email)
+insert into users(first_name, last_name, role, phone_number, address, login, password, email)
 values ('ivan', 'ivanov', 'manager', '88888888888', 'Moscow', 'ivanov', '$2a$10$YONPknUyc.NcFBTHtyG4IOEGREocQv8AKAM5j2gAPtWdEBOC/ay0u', 'ivanov@mail.ru'),
        ('petr', 'petrov', 'doctor', '88888888888', 'Moscow', 'petrov', '$2a$10$YONPknUyc.NcFBTHtyG4IOEGREocQv8AKAM5j2gAPtWdEBOC/ay0u', 'petrov@mail.ru');
 
@@ -191,14 +191,14 @@ values (2, '08:00:00', '14:00:00', 1, 'monday'),
        (2, '08:00:00', '14:00:00', 1, 'friday');
 
 insert into analysis_list(name, cost)
-values ('blood', 1000),
-       ('fluorography', 1500);
+values ('blood', 1000.00),
+       ('fluorography', 1500.00);
 
 insert into medical_service(name, cost)
-values ('inspection', 2000),
-       ('massage', 3000),
-       ('electrophoresis', 1000),
-       ('oxygen_cocktail', 500);
+values ('inspection', 2000.00),
+       ('massage', 3000.00),
+       ('electrophoresis', 1000.00),
+       ('oxygen_cocktail', 500.00);
 
 insert into preparation_list(name)
 values ('nurafen'),
