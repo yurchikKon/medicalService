@@ -1,0 +1,2 @@
+ivan ivanov : login - ivanov, password - ivanov;
+petr petrov : login - petrov, password - ivanov;
