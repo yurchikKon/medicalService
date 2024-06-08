@@ -1,8 +1,11 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -17,8 +20,8 @@ public class Analysis {
 
     private String name;
 
-    private long cost;
+    private BigDecimal cost;
 
-    @OneToOne(mappedBy = "analysis")
-    private AnalysisDirection analysisDirection;
+    @OneToMany(mappedBy = "analysis")
+    private List<AnalysisDirection> analysisDirection;
 }

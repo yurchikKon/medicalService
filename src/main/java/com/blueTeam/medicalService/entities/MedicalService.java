@@ -1,16 +1,17 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "specialization_list")
-public class Specialization {
+@Table(name = "medical_service")
+public class MedicalService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +20,9 @@ public class Specialization {
 
     private String name;
 
-    @OneToMany(mappedBy = "specialization")
-    private List<Doctor> doctors;
+    private BigDecimal cost;
 
-    @OneToOne(mappedBy = "specialization")
-    private SpecialDoctorDirection direction;
+    @ManyToMany(mappedBy = "medicalServices")
+    private List<DoctorsAppointment> doctorsAppointments;
+
 }

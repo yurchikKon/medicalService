@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.enums;
+package com.blueTeam.medicalService.entities.enums;
 
 public enum DirectionStatus {
     VALID,

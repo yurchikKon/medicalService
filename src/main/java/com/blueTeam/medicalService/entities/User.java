@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.enums.Role;
 import jakarta.persistence.*;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
 

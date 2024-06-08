@@ -1,9 +1,8 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.access.method.P;
 
 import java.time.LocalDate;
 
@@ -18,11 +17,11 @@ public class MedicalReceipt {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
     private DoctorsAppointment doctorsAppointment;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "preparation_id", referencedColumnName = "id")
     private Preparation preparation;
 

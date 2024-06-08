@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.enums.Status;
 import jakarta.persistence.*;
@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -19,7 +20,7 @@ public class DoctorsAppointment {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
 
@@ -37,12 +38,12 @@ public class DoctorsAppointment {
             name = "appointment_service",
             joinColumns = @JoinColumn(name = "appointment_doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "medical_service_id"))
-    private List<MedicalService> medicalServices;
+    private Set<MedicalService> medicalServices;
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<SpecialDoctorDirection> directions;
 
-    @OneToOne(mappedBy = "doctorsAppointment")
+    @OneToOne(mappedBy = "doctorsAppointment", fetch = FetchType.LAZY)
     private DoctorsRemark doctorsRemark;
 
     @OneToMany(mappedBy = "doctorsAppointment")
@@ -51,7 +52,7 @@ public class DoctorsAppointment {
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<MedicalReceipt> medicalReceipts;
 
-    @OneToOne(mappedBy = "doctorsAppointment")
+    @OneToOne(mappedBy = "doctorsAppointment", fetch = FetchType.LAZY)
     private AppointmentReview appointmentReview;
 
     @OneToMany(mappedBy = "doctorsAppointment")

@@ -1,12 +1,10 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.enums.DirectionStatus;
 import com.blueTeam.medicalService.enums.Usage;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,11 +17,11 @@ public class AnalysisDirection {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
     private DoctorsAppointment doctorsAppointment;
 
-    @OneToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "analysis_id", referencedColumnName = "id")
     private Analysis analysis;
 

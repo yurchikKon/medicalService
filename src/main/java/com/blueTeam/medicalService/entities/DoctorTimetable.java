@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 
 import jakarta.persistence.*;
@@ -19,7 +19,7 @@ public class DoctorTimetable {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "doctor_id", referencedColumnName = "id")
     private Doctor doctor;
 
@@ -33,5 +33,5 @@ public class DoctorTimetable {
     private LocalTime timeEnd;
 
     @Column(name = "room_number")
-    private int roomNumber;
+    private Integer roomNumber;
 }

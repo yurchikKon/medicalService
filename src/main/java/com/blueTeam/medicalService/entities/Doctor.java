@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,10 +16,10 @@ public class Doctor extends User {
     @JoinColumn(name = "specialization_id", referencedColumnName = "id")
     private Specialization specialization;
 
-    private double rate;
+    private Double rate;
 
-    @OneToOne(mappedBy = "doctor")
-    private DoctorTimetable timetable;
+    @OneToMany(mappedBy = "doctor")
+    private List<DoctorTimetable> timetable;
 
     @OneToMany(mappedBy = "doctor")
     private List<DoctorsAppointment> doctorsAppointments;

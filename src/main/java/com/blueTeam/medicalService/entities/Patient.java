@@ -1,10 +1,11 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.enums.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -16,7 +17,7 @@ public class Patient extends User{
     private Gender gender;
 
     @Column(name = "birth_date")
-    private String birthDate;
+    private LocalDate birthDate;
 
     @OneToMany(mappedBy = "patient")
     private List<DoctorsAppointment> doctorsAppointments;

@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class DoctorsRemark {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
     private DoctorsAppointment doctorsAppointment;
 }

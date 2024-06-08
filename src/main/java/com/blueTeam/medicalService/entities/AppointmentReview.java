@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.models;
+package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,19 +7,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "diagnosis")
-public class PatientsDiagnosis {
+@Table(name = "analysis_direction")
+public class AppointmentReview {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
     private DoctorsAppointment doctorsAppointment;
 
-    @OneToOne
-    @JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
-    private Diagnosis diagnosis;
+    private Double mark;
+
 }
