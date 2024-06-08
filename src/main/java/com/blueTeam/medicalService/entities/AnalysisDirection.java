@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.entities;
 
-import com.blueTeam.medicalService.enums.DirectionStatus;
-import com.blueTeam.medicalService.enums.Usage;
+import com.blueTeam.medicalService.entities.enums.DirectionStatus;
+import com.blueTeam.medicalService.entities.enums.Usage;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.entities;
 
-import com.blueTeam.medicalService.enums.Status;
+import com.blueTeam.medicalService.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,7 +38,7 @@ public class DoctorsAppointment {
             name = "appointment_service",
             joinColumns = @JoinColumn(name = "appointment_doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "medical_service_id"))
-    private Set<MedicalService> medicalServices;
+    private Set<MedicalServices> medicalServices;
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<SpecialDoctorDirection> directions;

@@ -1,8 +1,8 @@
 package com.blueTeam.medicalService.entities;
 
-import com.blueTeam.medicalService.enums.PaymentMethod;
-import com.blueTeam.medicalService.enums.PaymentType;
-import com.blueTeam.medicalService.enums.ReceiptStatus;
+import com.blueTeam.medicalService.entities.enums.PaymentMethod;
+import com.blueTeam.medicalService.entities.enums.PaymentType;
+import com.blueTeam.medicalService.entities.enums.ReceiptStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

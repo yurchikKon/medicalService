@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "medical_service")
-public class MedicalService {
+public class MedicalServices {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

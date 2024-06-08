@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.entities;
 
-import com.blueTeam.medicalService.enums.Role;
+import com.blueTeam.medicalService.entities.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
