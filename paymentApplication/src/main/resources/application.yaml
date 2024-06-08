@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:secrets.yaml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payment_service
+
+server:
+  port: 8081
