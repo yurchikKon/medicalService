@@ -55,8 +55,8 @@ create table if not exists appointment_doctor
     id        bigserial primary key,
     doctor_id bigint,
     user_id   bigint,
-    date_time timestamp NOT NULL ,
-    status    appointment_status_enum NOT NULL ,
+    date_time timestamp               NOT NULL,
+    status    appointment_status_enum NOT NULL,
     foreign key (doctor_id) references usr (id),
     foreign key (user_id) references usr (id)
 );
@@ -76,13 +76,19 @@ create table if not exists diagnosis
     foreign key (diagnosis_list_id) references diagnosis_list (id)
 );
 
+create table if not exists preparation_list(
+    id bigserial primary key,
+    name varchar(255)
+);
+
 create table if not exists medical_receipt
 (
     id                    bigserial primary key,
     appointment_doctor_id bigint,
-    name                  varchar(255),
+    preparation_id        bigint,
     date_end              date,
-    foreign key (appointment_doctor_id) references appointment_doctor (id)
+    foreign key (appointment_doctor_id) references appointment_doctor (id),
+    foreign key (preparation_id) references preparation_list(id)
 );
 
 create table if not exists appointment_review
@@ -164,3 +170,46 @@ create table if not exists pay_receipt
     foreign key (appointment_doctor_id) references appointment_doctor (id)
 );
 
+insert into specialization_list(name)
+values ('therapist'),
+       ('traumatologist'),
+       ('orthopedist'),
+       ('ophthalmologist');
+
+insert into usr(first_name, last_name, role, phone_number, address, login, password, email)
+values ('ivan', 'ivanov', 'manager', '88888888888', 'Moscow', 'ivanov', '$2a$10$YONPknUyc.NcFBTHtyG4IOEGREocQv8AKAM5j2gAPtWdEBOC/ay0u', 'ivanov@mail.ru'),
+       ('petr', 'petrov', 'doctor', '88888888888', 'Moscow', 'petrov', '$2a$10$YONPknUyc.NcFBTHtyG4IOEGREocQv8AKAM5j2gAPtWdEBOC/ay0u', 'petrov@mail.ru');
+
+insert into doctor(id, specialization_id)
+values (2, 1);
+
+insert into doctor_timetable(doctor_id, time_start, time_end, room_number, day_of_week)
+values (2, '08:00:00', '14:00:00', 1, 'monday'),
+       (2, '08:00:00', '14:00:00', 1, 'tuesday'),
+       (2, '08:00:00', '14:00:00', 1, 'wednesday'),
+       (2, '08:00:00', '14:00:00', 1, 'thursday'),
+       (2, '08:00:00', '14:00:00', 1, 'friday');
+
+insert into analysis_list(name, cost)
+values ('blood', 1000),
+       ('fluorography', 1500);
+
+insert into medical_service(name, cost)
+values ('inspection', 2000),
+       ('massage', 3000),
+       ('electrophoresis', 1000),
+       ('oxygen_cocktail', 500);
+
+insert into preparation_list(name)
+values ('nurafen'),
+       ('oksikontin'),
+       ('nazalvan'),
+       ('sprei');
+
+insert into diagnosis_list(name)
+values ('flu'),
+       ('runny_nose'),
+       ('fracture'),
+       ('bruis'),
+       ('back_pain'),
+       ('head_pain');
