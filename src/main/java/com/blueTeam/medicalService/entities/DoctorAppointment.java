@@ -1,5 +1,6 @@
 package com.blueTeam.medicalService.entities;
 
+import com.blueTeam.medicalService.entities.enums.Notification;
 import com.blueTeam.medicalService.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,9 @@ public class DoctorAppointment {
 
     @Enumerated
     private Status status;
+
+    @Enumerated
+    private Notification notification;
 
     @ManyToMany
     @JoinTable(
