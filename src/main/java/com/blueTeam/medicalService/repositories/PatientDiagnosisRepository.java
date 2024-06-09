@@ -1,9 +1,9 @@
 package com.blueTeam.medicalService.repositories;
 
-import com.blueTeam.medicalService.entities.PatientsDiagnosis;
+import com.blueTeam.medicalService.entities.PatientDiagnosis;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PatientDiagnosisRepository extends JpaRepository<Long, PatientsDiagnosis> {
+public interface PatientDiagnosisRepository extends JpaRepository<Long, PatientDiagnosis> {
 }

@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "appointment_doctor")
-public class DoctorsAppointment {
+public class DoctorAppointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +39,13 @@ public class DoctorsAppointment {
             name = "appointment_service",
             joinColumns = @JoinColumn(name = "appointment_doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "medical_service_id"))
-    private Set<MedicalServices> medicalServices;
+    private Set<MedicalProcedure> medicalServices;
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<SpecialDoctorDirection> directions;
 
     @OneToOne(mappedBy = "doctorsAppointment", fetch = FetchType.LAZY)
-    private DoctorsRemark doctorsRemark;
+    private DoctorRemark doctorsRemark;
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<AnalysisDirection> analysisDirections;
@@ -57,7 +57,7 @@ public class DoctorsAppointment {
     private AppointmentReview appointmentReview;
 
     @OneToMany(mappedBy = "doctorsAppointment")
-    private List<PatientsDiagnosis> patientsDiagnosisList;
+    private List<PatientDiagnosis> patientsDiagnosisList;
 
     @OneToMany(mappedBy = "doctorsAppointment")
     private List<PayReceipt> payReceipts;

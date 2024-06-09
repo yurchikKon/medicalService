@@ -21,5 +21,5 @@ public class Patient extends User{
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "patient")
-    private List<DoctorsAppointment> doctorsAppointments;
+    private List<DoctorAppointment> doctorsAppointments;
 }

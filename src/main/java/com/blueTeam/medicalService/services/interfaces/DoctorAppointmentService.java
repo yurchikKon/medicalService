@@ -1,5 +1,5 @@
 package com.blueTeam.medicalService.services.interfaces;
 
 
-public interface DoctorsRemarkService {
+public interface DoctorAppointmentService {
 }
