@@ -2,6 +2,7 @@ package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.entities.enums.Status;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "appointment_doctor")
 public class DoctorAppointment {
 
