@@ -1,12 +1,14 @@
 package com.blueTeam.medicalService.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
 @Table(name = "special_doctor_direction")
 public class SpecialDoctorDirection {
 

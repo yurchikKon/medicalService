@@ -2,6 +2,7 @@ package com.blueTeam.medicalService.entities;
 
 import com.blueTeam.medicalService.entities.enums.Gender;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "patient")
 public class Patient extends User{

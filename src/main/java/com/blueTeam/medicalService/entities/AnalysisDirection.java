@@ -3,11 +3,13 @@ package com.blueTeam.medicalService.entities;
 import com.blueTeam.medicalService.entities.enums.DirectionStatus;
 import com.blueTeam.medicalService.entities.enums.Usage;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "analysis_direction")
 public class AnalysisDirection {
