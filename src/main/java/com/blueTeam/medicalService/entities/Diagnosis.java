@@ -20,5 +20,5 @@ public class Diagnosis {
     private String name;
 
     @OneToMany(mappedBy = "diagnosis")
-    private List<PatientsDiagnosis> patientsDiagnosis;
+    private List<PatientDiagnosis> patientsDiagnosis;
 }

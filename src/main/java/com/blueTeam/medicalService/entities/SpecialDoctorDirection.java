@@ -17,7 +17,7 @@ public class SpecialDoctorDirection {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
-    private DoctorsAppointment doctorsAppointment;
+    private DoctorAppointment doctorsAppointment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specialization_id", referencedColumnName = "id")

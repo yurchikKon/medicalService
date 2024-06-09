@@ -2,11 +2,11 @@ package com.blueTeam.medicalService.services.implementations;
 
 import com.blueTeam.medicalService.dto.doctorsAppointment.AppointmentTimeDto;
 import com.blueTeam.medicalService.entities.DoctorTimetable;
-import com.blueTeam.medicalService.entities.DoctorsAppointment;
+import com.blueTeam.medicalService.entities.DoctorAppointment;
 import com.blueTeam.medicalService.repositories.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repositories.DoctorRepository;
 import com.blueTeam.medicalService.repositories.DoctorTimetableRepository;
-import com.blueTeam.medicalService.services.interfaces.DoctorsAppointmentService;
+import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,13 +21,13 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DoctorsAppointmentServiceImpl implements DoctorsAppointmentService {
+public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     private final DoctorAppointmentRepository doctorAppointmentRepository;
     private final DoctorRepository doctorRepository;
     private final DoctorTimetableRepository doctorTimetableRepository;
 
     @Override
-    public List<DoctorsAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate) {
+    public List<DoctorAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate) {
         if (checkDoctorExists(id)) {
             log.info("All appointments on {} of doctor with id = {} returned", localDate, id);
             return doctorAppointmentRepository.findAllByDoctorIdAndDate(id, localDate);
@@ -43,12 +43,16 @@ public class DoctorsAppointmentServiceImpl implements DoctorsAppointmentService 
             List<AppointmentTimeDto> appointmentTimeDtoList = findAllByDoctorIdAndDate(id, localDate);
             List<AppointmentTimeDto> freeAppointments = generateAllAppointmentTimeForTimetable(doctorTimetable);
             freeAppointments.removeAll(appointmentTimeDtoList);
+            log.info("All free appointments on {} of doctor with id = {} returned", localDate, id);
             return freeAppointments;
+        }
+        else {
+            throw new EntityNotFoundException("Doctor with such id does not exist");
         }
     }
 
     @Override
-    public DoctorsAppointment createAppointment(Long id, LocalDate date, LocalTime time) {
+    public DoctorAppointment createAppointment(Long id, LocalDate date, LocalTime time) {
 
 
     }

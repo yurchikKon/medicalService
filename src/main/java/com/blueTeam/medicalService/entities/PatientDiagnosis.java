@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "diagnosis")
-public class PatientsDiagnosis {
+public class PatientDiagnosis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +17,7 @@ public class PatientsDiagnosis {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
-    private DoctorsAppointment doctorsAppointment;
+    private DoctorAppointment doctorsAppointment;
 
     @ManyToOne
     @JoinColumn(name = "diagnosis_list_id", referencedColumnName = "id")

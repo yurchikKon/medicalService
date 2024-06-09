@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "medical_service")
-public class MedicalServices {
+public class MedicalProcedure {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,6 @@ public class MedicalServices {
     private BigDecimal cost;
 
     @ManyToMany(mappedBy = "medicalServices")
-    private List<DoctorsAppointment> doctorsAppointments;
+    private List<DoctorAppointment> doctorsAppointments;
 
 }

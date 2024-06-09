@@ -17,7 +17,7 @@ public class AppointmentReview {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "appointment_doctor_id", referencedColumnName = "id")
-    private DoctorsAppointment doctorsAppointment;
+    private DoctorAppointment doctorsAppointment;
 
     private Double mark;
 
