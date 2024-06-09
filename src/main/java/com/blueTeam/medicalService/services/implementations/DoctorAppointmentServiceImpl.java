@@ -1,9 +1,12 @@
 package com.blueTeam.medicalService.services.implementations;
 
 import com.blueTeam.medicalService.dto.doctorsAppointment.AppointmentTimeDto;
+import com.blueTeam.medicalService.entities.Doctor;
 import com.blueTeam.medicalService.entities.DoctorTimetable;
 import com.blueTeam.medicalService.entities.DoctorAppointment;
+import com.blueTeam.medicalService.entities.Patient;
 import com.blueTeam.medicalService.entities.enums.Status;
+import com.blueTeam.medicalService.exceptions.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.repositories.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repositories.DoctorRepository;
 import com.blueTeam.medicalService.repositories.DoctorTimetableRepository;
@@ -13,6 +16,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -32,7 +37,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
 
     @Override
     public List<DoctorAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate) {
-        if (checkDoctorExists(id)) {
+        if (doctorRepository.existsById(id)) {
             log.info("All appointments on {} of doctor with id = {} returned", localDate, id);
             return doctorAppointmentRepository.findAllByDoctorIdAndDate(id, localDate);
         } else {
@@ -42,7 +47,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
 
     @Override
     public List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {
-        if (checkDoctorExists(id)) {
+        if (doctorRepository.existsById(id)) {
             DoctorTimetable doctorTimetable = doctorTimetableRepository.findByDoctorIdAndDayOfWeek(id, localDate.getDayOfWeek());
             List<AppointmentTimeDto> appointmentTimeDtoList = findAllByDoctorIdAndDate(id, localDate);
             List<AppointmentTimeDto> freeAppointments = generateAllAppointmentTimeForTimetable(doctorTimetable);
@@ -56,25 +61,27 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     }
 
     @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public DoctorAppointment createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+            .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist"));
+        Patient patient = patientRepository.findById(patientId)
+            .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist"));
         List<DoctorAppointment> doctorAppointmentList = doctorAppointmentRepository.findAllByDoctorIdAndDate(doctorId, date);
 
         if(doctorAppointmentList.stream().noneMatch(app -> app.getDateTime().toLocalTime().equals(time))) {
             DoctorAppointment doctorAppointment = DoctorAppointment.builder()
-                .doctor(doctorRepository.findById(doctorId)
-                    .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist")))
-                .patient(patientRepository.findById(patientId)
-                    .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist")))
+                .doctor(doctor)
+                .patient(patient)
                 .dateTime(LocalDateTime.of(date,time))
                 .status(Status.SCHEDULE)
                 .build();
-            doctorAppointmentRepository.save(doctorAppointment)
+            return doctorAppointmentRepository.save(doctorAppointment);
+        }
+        else {
+            throw new ResourceAlreadyExistException("Sorry, appointment for this time has already been created");
         }
 
-    }
-
-    private boolean checkDoctorExists(Long id) {
-        return doctorRepository.findById(id).isPresent();
     }
 
     private List<AppointmentTimeDto> generateAllAppointmentTimeForTimetable(DoctorTimetable doctorTimetable) {
