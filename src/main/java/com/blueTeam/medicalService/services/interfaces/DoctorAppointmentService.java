@@ -9,8 +9,11 @@ import java.util.List;
 
 public interface DoctorAppointmentService {
 
-    List<DoctorAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate);
+    List<DoctorAppointment> findAllScheduledByDoctorIdAndDate(Long id, LocalDate localDate);
+
     List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate);
 
     DoctorAppointment createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time);
+
+    DoctorAppointment cancelAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time);
 }

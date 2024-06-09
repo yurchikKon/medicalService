@@ -7,13 +7,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppointment, Long> {
 
-    @Query("SELECT d FROM DoctorAppointment d WHERE d.id = :id and FUNCTION('DATE_TRUNC', 'day', d.dateTime)" +
+    @Query("SELECT d FROM DoctorAppointment d WHERE d.id = :id and d.status = 'scheduled' and FUNCTION('DATE_TRUNC', 'day', d.dateTime)" +
         " = FUNCTION('DATE_TRUNC', 'day', :date)")
-    List<DoctorAppointment> findAllByDoctorIdAndDate(@Param("id") Long id, @Param("date") LocalDate localDate);
+    List<DoctorAppointment> findAllScheduledByDoctorIdAndDate(@Param("id") Long id, @Param("date") LocalDate localDate);
+
+    Optional<DoctorAppointment> findByDoctorIdAndPatientIdAndDateTime(Long doctorId, Long patientId, LocalDateTime dateTime);
 }
 
