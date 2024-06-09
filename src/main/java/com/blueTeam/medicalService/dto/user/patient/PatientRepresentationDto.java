@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.dto.user.patient;
 
 import com.blueTeam.medicalService.dto.user.UserRepresentationDto;
-import com.blueTeam.medicalService.entities.DoctorAppointment;
+import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 import com.blueTeam.medicalService.entities.enums.Gender;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +21,5 @@ import static lombok.AccessLevel.PRIVATE;
 public class PatientRepresentationDto extends UserRepresentationDto {
     Gender gender;
     LocalDate birthDate;
-    List<DoctorAppointment> doctorsAppointments;
+    List<DoctorAppointmentRepresentationDto> doctorAppointmentDtos;
 }

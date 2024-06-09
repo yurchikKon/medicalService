@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.dto.user.doctor.appointment;
 
-import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionRepresentationDto;
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.dto.medicalRecipient.MedicalRecipientRepresentationDto;
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
 import com.blueTeam.medicalService.dto.receipt.MedicalReceiptDto;
@@ -25,7 +25,7 @@ public class DoctorAppointmentRepresentationDto {
     Status status;
     Set<MedicalRecipientRepresentationDto> medicalRecipientDtos;
     DoctorRepresentationDto doctorRemarkDto;
-    List<AnalysisDirectionRepresentationDto> analysisDirectionDtos;
+    List<AnalysisDirectionDto> analysisDirectionDtos;
     List<MedicalReceiptDto> medicalReceiptDtos;
     AppointmentReview appointmentReview;
     List<PayReceiptDto> payReceiptDtos;

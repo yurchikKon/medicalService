@@ -10,6 +10,6 @@ public record AnalysisRepresentationDto(
         Long id,
         String name,
         BigDecimal cost,
-        List<AnalysisDirectionCreateEditDto> analysisDirectionDto
+        List<AnalysisDirectionDto> analysisDirectionDto
 ) {
 }

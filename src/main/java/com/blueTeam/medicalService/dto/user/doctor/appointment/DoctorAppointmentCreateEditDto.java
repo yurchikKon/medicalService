@@ -1,8 +1,8 @@
 package com.blueTeam.medicalService.dto.user.doctor.appointment;
 
 import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
-import com.blueTeam.medicalService.dto.user.doctor.DoctorCreateEditDto;
-import com.blueTeam.medicalService.dto.user.patient.PatientCreateEditDto;
+import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
+import com.blueTeam.medicalService.dto.user.patient.PatientRepresentationDto;
 import com.blueTeam.medicalService.entities.enums.Status;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.NotBlank;
@@ -14,8 +14,8 @@ public record DoctorAppointmentCreateEditDto(
         @NotBlank(groups = {UpdateAction.class})
         Long id,
 
-        DoctorCreateEditDto doctorDto,
-        PatientCreateEditDto patientDto,
+        DoctorRepresentationDto doctorDto,
+        PatientRepresentationDto patientDto,
 
         @NotBlank(groups = {UserCreateEditDto.class, UpdateAction.class})
         LocalDateTime dateTime,
