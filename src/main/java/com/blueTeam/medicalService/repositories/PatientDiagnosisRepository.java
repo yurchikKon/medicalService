@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PatientDiagnosisRepository extends JpaRepository<Long, PatientDiagnosis> {
+public interface PatientDiagnosisRepository extends JpaRepository<PatientDiagnosis, Long> {
 }

@@ -10,9 +10,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface DoctorAppointmentRepository extends JpaRepository<Long, DoctorAppointment> {
+public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppointment, Long> {
 
     @Query("SELECT d FROM DoctorAppointment d WHERE d.id = :id and FUNCTION('DATE_TRUNC', 'day', d.dateTime)" +
         " = FUNCTION('DATE_TRUNC', 'day', :date)")
     List<DoctorAppointment> findAllByDoctorIdAndDate(@Param("id") Long id, @Param("date") LocalDate localDate);
 }
+

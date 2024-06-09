@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.time.DayOfWeek;
 
 @Repository
-public interface DoctorTimetableRepository extends JpaRepository<Long, DoctorTimetable> {
+public interface DoctorTimetableRepository extends JpaRepository<DoctorTimetable, Long> {
 
     DoctorTimetable findByDoctorIdAndDayOfWeek(Long id, DayOfWeek dayOfWeek);
 }
