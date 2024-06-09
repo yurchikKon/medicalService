@@ -3,9 +3,11 @@ package com.blueTeam.medicalService.services.implementations;
 import com.blueTeam.medicalService.dto.doctorsAppointment.AppointmentTimeDto;
 import com.blueTeam.medicalService.entities.DoctorTimetable;
 import com.blueTeam.medicalService.entities.DoctorAppointment;
+import com.blueTeam.medicalService.entities.enums.Status;
 import com.blueTeam.medicalService.repositories.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repositories.DoctorRepository;
 import com.blueTeam.medicalService.repositories.DoctorTimetableRepository;
+import com.blueTeam.medicalService.repositories.PatientRepository;
 import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     private final DoctorAppointmentRepository doctorAppointmentRepository;
     private final DoctorRepository doctorRepository;
     private final DoctorTimetableRepository doctorTimetableRepository;
+    private final PatientRepository patientRepository;
 
     @Override
     public List<DoctorAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate) {
@@ -52,8 +56,20 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     }
 
     @Override
-    public DoctorAppointment createAppointment(Long id, LocalDate date, LocalTime time) {
+    public DoctorAppointment createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time) {
+        List<DoctorAppointment> doctorAppointmentList = doctorAppointmentRepository.findAllByDoctorIdAndDate(doctorId, date);
 
+        if(doctorAppointmentList.stream().noneMatch(app -> app.getDateTime().toLocalTime().equals(time))) {
+            DoctorAppointment doctorAppointment = DoctorAppointment.builder()
+                .doctor(doctorRepository.findById(doctorId)
+                    .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist")))
+                .patient(patientRepository.findById(patientId)
+                    .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist")))
+                .dateTime(LocalDateTime.of(date,time))
+                .status(Status.SCHEDULE)
+                .build();
+            doctorAppointmentRepository.save(doctorAppointment)
+        }
 
     }
 

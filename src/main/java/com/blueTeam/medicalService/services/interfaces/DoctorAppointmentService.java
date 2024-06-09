@@ -12,5 +12,5 @@ public interface DoctorAppointmentService {
     List<DoctorAppointment> findAllByDoctorIdAndDate(Long id, LocalDate localDate);
     List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate);
 
-    DoctorAppointment createAppointment(Long id, LocalDate date, LocalTime time);
+    DoctorAppointment createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time);
 }
