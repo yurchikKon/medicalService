@@ -27,10 +27,10 @@ public class AnalysisDirection {
     @JoinColumn(name = "analysis_id", referencedColumnName = "id")
     private Analysis analysis;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private DirectionStatus status;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Usage usage;
 
     private String result;
