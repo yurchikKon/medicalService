@@ -26,7 +26,7 @@ public class User {
     private String lastName;
 
     @Column(name = "role")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Column(name = "phone_number")

@@ -4,15 +4,15 @@ import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
 import com.blueTeam.medicalService.dto.user.doctor.specialization.SpecializationDto;
 import com.blueTeam.medicalService.validation.group.CreateAction;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
-@Builder
+@SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 @FieldDefaults(level = PRIVATE)
 public class DoctorCreateEditDto extends UserCreateEditDto {
