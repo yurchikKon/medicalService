@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.dto.doctorsAppointment;
+package com.blueTeam.medicalService.dto.user.doctor.appointment;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
