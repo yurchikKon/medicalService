@@ -1,5 +1,11 @@
-package com.blueTeam.medicalService.controllers;/**
- * todo Document type UserController
- */
+package com.blueTeam.medicalService.controllers;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/users")
 public class UserController {
 }

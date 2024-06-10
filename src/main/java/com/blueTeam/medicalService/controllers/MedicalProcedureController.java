@@ -1,5 +1,11 @@
-package com.blueTeam.medicalService.controllers;/**
- * todo Document type MedicalProcedureController
- */
+package com.blueTeam.medicalService.controllers;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/medicalProcedures")
 public class MedicalProcedureController {
 }
