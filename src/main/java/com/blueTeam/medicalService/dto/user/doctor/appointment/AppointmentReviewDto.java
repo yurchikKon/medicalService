@@ -12,7 +12,5 @@ public class AppointmentReviewDto {
     @NotBlank(groups = {UpdateAction.class})
     Long id;
 
-    DoctorAppointmentRepresentationDto doctorAppointmentDto;
-
     Double mark;
 }
