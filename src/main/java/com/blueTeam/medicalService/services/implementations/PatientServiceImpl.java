@@ -20,7 +20,7 @@ public class PatientServiceImpl implements PatientService {
     private final DoctorAppointmentRepository doctorAppointmentRepository;
 
     public List<DoctorAppointment> getActiveDoctorAppointmentByUserId(Long id) {
-        return doctorAppointmentRepository.findAllByUserIdAndStatus(id, Status.SCHEDULE);
+        return doctorAppointmentRepository.findAllByPatientIdAndStatus(id, Status.SCHEDULE);
     }
 
     public List<PatientActiveAppointmentDto> convertAppointmentListToDto(List<DoctorAppointment> appointments) {
