@@ -3,21 +3,23 @@ package com.blueTeam.medicalService.services.implementations;
 import com.blueTeam.medicalService.entities.AnalysisDirection;
 import com.blueTeam.medicalService.entities.enums.Usage;
 import com.blueTeam.medicalService.repositories.AnalysisDirectionRepository;
-import com.blueTeam.medicalService.repositories.PatientRepository;
 import com.blueTeam.medicalService.services.interfaces.AnalysisDirectionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
-    @Autowired
-    AnalysisDirectionRepository analysisDirectionRepository;
-    PatientRepository patientRepository;
+
+    public final AnalysisDirectionRepository analysisDirectionRepository;
+
     @Override
     public List<AnalysisDirection> findAllByPatientidAndUsage(Long patientid, Usage usage) {
-        List<AnalysisDirection> analysisDirectionList = patientRepository.findAllByPatientidAndUsage(patientid, Usage.USED);
+        List<AnalysisDirection> analysisDirectionList = analysisDirectionRepository.findAllByPatientidAndUsage(Usage.USED, patientid);
         return analysisDirectionList;
     }
 }
