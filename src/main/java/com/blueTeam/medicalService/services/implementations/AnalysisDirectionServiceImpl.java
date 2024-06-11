@@ -1,5 +1,6 @@
 package com.blueTeam.medicalService.services.implementations;
 
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.entities.AnalysisDirection;
 import com.blueTeam.medicalService.entities.enums.DirectionStatus;
 import com.blueTeam.medicalService.entities.enums.Usage;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.blueTeam.medicalService.entities.enums.DirectionStatus.*;
 import static com.blueTeam.medicalService.entities.enums.Usage.*;
@@ -21,15 +23,17 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
     private final AnalysisDirectionRepository analysisDirectionRepository;
 
     @Override
-    public AnalysisDirection passAnalysis(Long id) {
+    @Transactional
+    public AnalysisDirectionDto passAnalysis(Long id) {
         AnalysisDirection analysisDirection = analysisDirectionRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("No direction with such id "));
         if (analysisDirection.getStatus().equals(VALID)) {
             analysisDirection.setStatus(INVALID);
             analysisDirection.setUsage(USED);
+            analysisDirectionRepository.save(analysisDirection);
             log.info("Analysis direction with id {} was used", id);
 
-            return analysisDirection;
+            return null;
         } else {
             throw new ResourceAlreadyExistException("Analysis has already bin passed");
         }

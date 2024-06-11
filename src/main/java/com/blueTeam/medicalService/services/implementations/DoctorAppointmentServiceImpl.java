@@ -40,7 +40,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
 
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(Long id, LocalDate localDate) {
-        if (doctorRepository.existsById(id)) {
+        /*if (doctorRepository.existsById(id)) {
             log.info("All appointments on {} of doctor with id = {} returned", localDate, id);
             return doctorAppointmentRepository.findAllScheduledByDoctorIdAndDate(id, localDate)
                 .stream()
@@ -48,12 +48,13 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
                 .toList();
         } else {
             throw new EntityNotFoundException("Doctor with such id does not exist");
-        }
+        }*/
+        return null;
     }
 
     @Override
     public List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {
-        if (doctorRepository.existsById(id)) {
+        /*if (doctorRepository.existsById(id)) {
             DoctorTimetable doctorTimetable = doctorTimetableRepository.findByDoctorIdAndDayOfWeek(id, localDate.getDayOfWeek());
 
             List<AppointmentTimeDto> appointmentTimeDtoList = findAllScheduledByDoctorIdAndDate(id, localDate)
@@ -67,48 +68,48 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
             return freeAppointments;
         } else {
             throw new EntityNotFoundException("Doctor with such id does not exist");
-        }
+        }*/return null;
     }
 
     @Override
     @Transactional(isolation = SERIALIZABLE)
-    public DoctorAppointmentCreateEditDto createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time) {
-        Doctor doctor = doctorRepository.findById(doctorId)
+    public DoctorAppointmentCreateEditDto createAppointment(DoctorAppointmentCreateEditDto dto) {
+        /*Doctor doctor = doctorRepository.findById(dto.doctorDto().getId())
             .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist"));
-        Patient patient = patientRepository.findById(patientId)
+        Patient patient = patientRepository.findById(dto.patientDto().getId())
             .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist"));
-        List<DoctorAppointment> doctorAppointmentList = doctorAppointmentRepository.findAllScheduledByDoctorIdAndDate(doctorId, date);
+        List<DoctorAppointment> doctorAppointmentList = doctorAppointmentRepository
+            .findAllScheduledByDoctorIdAndDate(doctor.getId(), dto.dateTime().toLocalDate());
 
-        if (doctorAppointmentList.stream().noneMatch(app -> app.getDateTime().toLocalTime().equals(time))) {
+        if (doctorAppointmentList.stream().noneMatch(app -> app.getDateTime().toLocalTime().equals(dto.dateTime().toLocalTime()))) {
             DoctorAppointment doctorAppointment = DoctorAppointment.builder()
                 .doctor(doctor)
                 .patient(patient)
-                .dateTime(LocalDateTime.of(date, time))
-                .status(SCHEDULE)
+                .dateTime(LocalDateTime.of(dto.dateTime().toLocalDate(), dto.dateTime().toLocalTime()))
+                .status(SCHEDULED)
                 .build();
             doctorAppointmentRepository.save(doctorAppointment);
             log.info("New appointment for patient with id {} to doctor with id {} on {} {} was created",
-                patientId, doctorId, date, time);
+                patient.getId(), doctor.getId(), dto.dateTime().toLocalDate(), dto.dateTime().toLocalTime());
 
             return ;
         } else {
             throw new ResourceAlreadyExistException("Sorry, appointment for this time has already been created");
-        }
+        }*/ return null;
     }
 
     @Override
     @Transactional(isolation = SERIALIZABLE)
-    public DoctorAppointmentCreateEditDto cancelAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time) {
-        DoctorAppointment doctorAppointment = doctorAppointmentRepository
-            .findByDoctorIdAndPatientIdAndDateTime(doctorId, patientId, LocalDateTime.of(date, time))
-            .orElseThrow(() -> new EntityNotFoundException("No appointments was found with such details"));
+    public DoctorAppointmentCreateEditDto cancelAppointment(Long appointmentId) {
+        /*DoctorAppointment doctorAppointment = doctorAppointmentRepository
+            .findById(appointmentId)
+            .orElseThrow(() -> new EntityNotFoundException("No appointments was found with such id"));
 
         doctorAppointment.setStatus(CANCELED);
         doctorAppointmentRepository.save(doctorAppointment);
-        log.info("Scheduled appointment for patient with id {} to doctor with id {} on {} {} was canceled",
-            patientId, doctorId, date, time);
+        log.info("Scheduled appointment with id {} was canceled", appointmentId);
 
-        return ;
+        return ;*/ return null;
     }
 
     private List<AppointmentTimeDto> generateAllAppointmentTimeForTimetable(DoctorTimetable doctorTimetable) {

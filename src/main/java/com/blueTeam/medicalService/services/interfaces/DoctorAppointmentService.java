@@ -15,7 +15,7 @@ public interface DoctorAppointmentService {
 
     List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate);
 
-    DoctorAppointmentCreateEditDto createAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time);
+    DoctorAppointmentCreateEditDto createAppointment(DoctorAppointmentCreateEditDto dto);
 
-    DoctorAppointmentCreateEditDto cancelAppointment(Long doctorId, Long patientId, LocalDate date, LocalTime time);
+    DoctorAppointmentCreateEditDto cancelAppointment(Long appointmentId);
 }

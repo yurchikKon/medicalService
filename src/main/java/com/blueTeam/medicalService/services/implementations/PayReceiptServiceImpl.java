@@ -32,7 +32,7 @@ public class PayReceiptServiceImpl implements PayReceiptService {
     private final PatientRepository patientRepository;
 
     @Override
-    public PayReceipt createAnalysisPayReceipt(Long analysisDirectionId) {
+    public PayReceiptDto createAnalysisPayReceipt(Long analysisDirectionId) {
         AnalysisDirection analysisDirection = analysisDirectionRepository.findById(analysisDirectionId)
             .orElseThrow(() -> new EntityNotFoundException("no analysis direction with such id"));
 
@@ -46,16 +46,16 @@ public class PayReceiptServiceImpl implements PayReceiptService {
         payReceiptRepository.save(payReceipt);
         log.info("New analysis pay receipt was created");
 
-        return payReceipt;
+        return null;
     }
 
     @Override
     public List<PayReceiptDto> findAllByPatientId(Long patientId) {
-        if(patientRepository.existsById(patientId)) {
+        /*if(patientRepository.existsById(patientId)) {
             log.info("All pay receipts of patient with id = {} was returned", patientId);
 
             return doctorAppointmentRepository
-                .findAllByPatientIdAndStatus(patientId, Status.COMPLETE)
+                .findAllByPatientIdAndStatus(patientId, Status.COMPLETED)
                 .stream()
                 .map(DoctorAppointment::getPayReceipts)
                 .flatMap(List::stream)
@@ -64,7 +64,7 @@ public class PayReceiptServiceImpl implements PayReceiptService {
         }
         else {
             throw new EntityNotFoundException("No patients with such id was found");
-        }
+        }*/ return null;
 
     }
 }

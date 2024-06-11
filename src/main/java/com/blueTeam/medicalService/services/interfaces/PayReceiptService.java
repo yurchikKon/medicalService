@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PayReceiptService {
 
-    PayReceipt createAnalysisPayReceipt(Long analysisDirectionId);
+    PayReceiptDto createAnalysisPayReceipt(Long analysisDirectionId);
 
     List<PayReceiptDto> findAllByPatientId(Long id);
 }
