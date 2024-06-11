@@ -12,12 +12,15 @@ import static org.mapstruct.NullValuePropertyMappingStrategy.IGNORE;
 @Mapper(componentModel = SPRING)
 public interface AnalysisMapper {
 
+
+    @Mapping(target = "analysisDirection", ignore = true)
     Analysis mapToEntity(AnalysisDto dto);
 
     AnalysisDto mapToDto(Analysis entity);
 
     @Mappings({
-            @Mapping(target = "name", source = "dto.getName()", conditionExpression = "java(!dto.getName().isEmpty())")
+            @Mapping(target = "analysisDirection", ignore = true),
+            @Mapping(target = "name", conditionExpression = "java(!dto.name().isEmpty())")
     })
     @BeanMapping(nullValuePropertyMappingStrategy = IGNORE)
     Analysis update(AnalysisDto dto, @MappingTarget Analysis entity);
