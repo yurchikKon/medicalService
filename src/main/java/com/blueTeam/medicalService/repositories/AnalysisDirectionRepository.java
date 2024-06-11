@@ -9,4 +9,5 @@ import java.util.List;
 
 @Repository
 public interface AnalysisDirectionRepository extends JpaRepository<AnalysisDirection, Long> {
+
 }
