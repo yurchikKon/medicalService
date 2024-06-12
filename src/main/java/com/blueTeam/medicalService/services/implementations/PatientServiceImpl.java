@@ -19,11 +19,8 @@ public class PatientServiceImpl implements PatientService {
 
     private final DoctorAppointmentRepository doctorAppointmentRepository;
 
-    public List<DoctorAppointment> getActiveDoctorAppointmentByUserId(Long id) {
-        return doctorAppointmentRepository.findAllByPatientIdAndStatus(id, Status.SCHEDULE);
-    }
-
-    public List<PatientActiveAppointmentDto> convertAppointmentListToDto(List<DoctorAppointment> appointments) {
+    public List<PatientActiveAppointmentDto> getActivePatientAppointmentDto(Long id) {
+        List<DoctorAppointment>  appointments = doctorAppointmentRepository.findAllByPatientIdAndStatus(id, Status.SCHEDULED);
         return appointments.stream().map(appointment -> {
             Doctor doctor = appointment.getDoctor();
             return PatientActiveAppointmentDto.builder()
@@ -36,8 +33,6 @@ public class PatientServiceImpl implements PatientService {
         }).collect(Collectors.toList());
     }
 
-    public List<PatientActiveAppointmentDto> getActivePatientAppointmentDto(Long id) {
-        return convertAppointmentListToDto(getActiveDoctorAppointmentByUserId(id));
-    }
+
 
 }
