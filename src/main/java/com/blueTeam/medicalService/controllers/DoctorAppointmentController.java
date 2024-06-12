@@ -20,9 +20,4 @@ import java.util.List;
 public class DoctorAppointmentController {
     private final DoctorAppointmentService doctorAppointmentService;
 
-    @GetMapping
-    public ResponseEntity<List<DoctorAppointmentRepresentationDto>> getDoctorAppointmentsByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) {
-        List<DoctorAppointmentRepresentationDto> doctorAppointments = doctorAppointmentService.getDoctorAppointmentRepresentationDto(dateTime);
-        return new ResponseEntity<>(doctorAppointments, HttpStatus.OK);
-    }
 }
