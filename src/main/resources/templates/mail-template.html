@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Medical Appointment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            line-height: 1.5;
+        }
+        .appointment-details {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Подтверждение записи на прием</h1>
+    <p>Добрый день, <span th:text="${patientLastName}"> </span> <span th:text="${patientFirstName}"></span>.</p>
+    <p>Напоминаем Вам о предстоящем приеме у нас:</p>
+    <div class="appointment-details">
+        <p><b>Пациент:</b> <span th:text="${patientLastName}"> </span> <span th:text="${patientFirstName}"></span></p>
+        <p><b>Врач:</b> <span th:text="${doctorLastName}"></span> <span th:text="${doctorFirstName}"></span></p>
+        <p><b>Дата приема:</b> <span th:text="${#temporals.format(appointmentTime, 'EEEE, d MMMM yyyy HH:mm')}"></span></p>
+    </div>
+    <p>С наилучшими пожеланиями, BlueTeam Clinic.</p>
+</div>
+</body>
+</html>

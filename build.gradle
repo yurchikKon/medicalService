@@ -37,6 +37,8 @@ allprojects {
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
         implementation 'org.flywaydb:flyway-core'
         implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.0'
+        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
 
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'org.postgresql:postgresql'
