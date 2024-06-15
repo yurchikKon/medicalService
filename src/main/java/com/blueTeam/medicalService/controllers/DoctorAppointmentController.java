@@ -1,13 +1,14 @@
 package com.blueTeam.medicalService.controllers;
 
-import com.blueTeam.medicalService.dto.user.doctor.appointment.AppointmentTimeDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentCreateEditDto;
+import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -17,18 +18,19 @@ public class DoctorAppointmentController {
     private final DoctorAppointmentService doctorAppointmentService;
 
     @GetMapping("/{doctorId}/date/{date}/free")
-    public List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(@PathVariable Long doctorId,
+    public List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(@PathVariable Long doctorId,
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
         return doctorAppointmentService.findAllFreeAppointmentsByDoctorIdAndDate(doctorId, date);
     }
 
-    @PostMapping
-    public DoctorAppointmentCreateEditDto createAppointment(@RequestBody DoctorAppointmentCreateEditDto dto) {
-        return doctorAppointmentService.createAppointment(dto);
+    @PostMapping("/{patientId}/{doctorId}")
+    public DoctorAppointmentRepresentationDto createAppointment(@PathVariable Long patientId, @PathVariable Long doctorId,
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime) {
+        return doctorAppointmentService.createAppointment(patientId, doctorId, dateTime);
     }
 
     @PutMapping("/{appointmentId}")
-    public DoctorAppointmentCreateEditDto cancelAppointment(@PathVariable Long appointmentId) {
+    public DoctorAppointmentRepresentationDto cancelAppointment(@PathVariable Long appointmentId) {
         return doctorAppointmentService.cancelAppointment(appointmentId);
     }
 }

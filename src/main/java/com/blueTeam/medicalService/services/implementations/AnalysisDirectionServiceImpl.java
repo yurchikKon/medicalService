@@ -5,6 +5,7 @@ import com.blueTeam.medicalService.entities.AnalysisDirection;
 import com.blueTeam.medicalService.entities.enums.DirectionStatus;
 import com.blueTeam.medicalService.entities.enums.Usage;
 import com.blueTeam.medicalService.exceptions.ResourceAlreadyExistException;
+import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
 import com.blueTeam.medicalService.repositories.AnalysisDirectionRepository;
 import com.blueTeam.medicalService.services.interfaces.AnalysisDirectionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,6 +22,7 @@ import static com.blueTeam.medicalService.entities.enums.Usage.*;
 @Slf4j
 public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
     private final AnalysisDirectionRepository analysisDirectionRepository;
+    private final AnalysisDirectionMapper analysisDirectionMapper;
 
     @Override
     @Transactional
@@ -33,9 +35,9 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
             analysisDirectionRepository.save(analysisDirection);
             log.info("Analysis direction with id {} was used", id);
 
-            return null;
+            return analysisDirectionMapper.mapToDto(analysisDirection);
         } else {
-            throw new ResourceAlreadyExistException("Analysis has already bin passed");
+            throw new ResourceAlreadyExistException("Analysis has already been passed");
         }
     }
 }

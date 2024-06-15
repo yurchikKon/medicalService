@@ -15,8 +15,7 @@ import java.util.Optional;
 @Repository
 public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppointment, Long> {
 
-    @Query("SELECT d FROM DoctorAppointment d WHERE d.id = :id and d.status = 'scheduled' and FUNCTION('DATE_TRUNC', 'day', d.dateTime)" +
-        " = FUNCTION('DATE_TRUNC', 'day', :date)")
+    @Query("SELECT d FROM DoctorAppointment d WHERE d.doctor.id = :id and d.status = 'SCHEDULED' and CAST(d.dateTime as date ) =:date")
     List<DoctorAppointment> findAllScheduledByDoctorIdAndDate(@Param("id") Long id, @Param("date") LocalDate localDate);
 
     Optional<DoctorAppointment> findByDoctorIdAndPatientIdAndDateTime(Long doctorId, Long patientId, LocalDateTime dateTime);

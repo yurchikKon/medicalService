@@ -9,6 +9,7 @@ import com.blueTeam.medicalService.dto.user.doctor.remark.DoctorRemarkDto;
 import com.blueTeam.medicalService.dto.user.patient.PatientRepresentationDto;
 import com.blueTeam.medicalService.entities.enums.Status;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.time.LocalDateTime;

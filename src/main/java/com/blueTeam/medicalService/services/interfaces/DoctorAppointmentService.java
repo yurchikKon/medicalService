@@ -1,21 +1,19 @@
 package com.blueTeam.medicalService.services.interfaces;
 
-import com.blueTeam.medicalService.dto.user.doctor.appointment.AppointmentTimeDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentCreateEditDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.entities.DoctorAppointment;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface DoctorAppointmentService {
 
     List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(Long id, LocalDate localDate);
 
-    List<AppointmentTimeDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate);
+    List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate);
 
-    DoctorAppointmentCreateEditDto createAppointment(DoctorAppointmentCreateEditDto dto);
+    DoctorAppointmentRepresentationDto createAppointment(Long patientId, Long doctorId, LocalDateTime dateTime);
 
-    DoctorAppointmentCreateEditDto cancelAppointment(Long appointmentId);
+    DoctorAppointmentRepresentationDto cancelAppointment(Long appointmentId);
 }

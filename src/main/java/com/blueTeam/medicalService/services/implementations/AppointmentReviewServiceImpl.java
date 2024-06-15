@@ -6,6 +6,7 @@ import com.blueTeam.medicalService.entities.Doctor;
 import com.blueTeam.medicalService.entities.DoctorAppointment;
 import com.blueTeam.medicalService.entities.enums.Status;
 import com.blueTeam.medicalService.exceptions.InvalidStateException;
+import com.blueTeam.medicalService.mapper.AppointmentReviewMapper;
 import com.blueTeam.medicalService.repositories.AppointmentReviewRepository;
 import com.blueTeam.medicalService.repositories.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repositories.DoctorRepository;
@@ -26,22 +27,23 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
     private final DoctorAppointmentRepository doctorAppointmentRepository;
     private final AppointmentReviewRepository appointmentReviewRepository;
     private final DoctorRepository doctorRepository;
+    private final AppointmentReviewMapper appointmentReviewMapper;
 
     @Override
     public AppointmentReviewDto estimateAppointment(Long appointmentId, Double mark) {
         DoctorAppointment doctorAppointment = doctorAppointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new EntityNotFoundException("No appointment with such id"));
-        if (doctorAppointment.getStatus().equals(Status.COMPLETED)) {
+        if (doctorAppointment.getStatus().equals(Status.COMPLETED) && doctorAppointment.getAppointmentReview() == null) {
             AppointmentReview appointmentReview = AppointmentReview.builder()
                 .doctorsAppointment(doctorAppointment)
                 .mark(mark)
                 .build();
 
             appointmentReviewRepository.save(appointmentReview);
-            return null;
+            return appointmentReviewMapper.mapToDto(appointmentReview);
         }
         else {
-            throw new InvalidStateException("This appointment has not been completed yet");
+            throw new InvalidStateException("You can not estimate this appointment");
         }
     }
 
