@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class PayReceiptServiceImpl implements PayReceiptService {
     private final PayReceiptMapper payReceiptMapper;
 
     @Override
+    @Transactional
     public PayReceiptDto createAnalysisPayReceipt(Long analysisDirectionId) {
         AnalysisDirection analysisDirection = analysisDirectionRepository.findById(analysisDirectionId)
             .orElseThrow(() -> new EntityNotFoundException("no analysis direction with such id"));
@@ -56,6 +58,7 @@ public class PayReceiptServiceImpl implements PayReceiptService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PayReceiptDto> findAllByPatientId(Long patientId) {
         if(patientRepository.existsById(patientId)) {
             log.info("All pay receipts of patient with id = {} was returned", patientId);

@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
     private final AppointmentReviewMapper appointmentReviewMapper;
 
     @Override
+    @Transactional
     public AppointmentReviewDto estimateAppointment(Long appointmentId, Double mark) {
         DoctorAppointment doctorAppointment = doctorAppointmentRepository.findById(appointmentId)
             .orElseThrow(() -> new EntityNotFoundException("No appointment with such id"));
@@ -48,6 +50,7 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
     }
 
     @Override
+    @Transactional
     @Scheduled(cron = "0 0 0 * * *")
     public void doctorsRateProcess() {
         List<Doctor> doctorList = doctorRepository.findAll();

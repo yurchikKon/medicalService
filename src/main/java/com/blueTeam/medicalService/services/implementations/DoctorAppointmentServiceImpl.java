@@ -39,11 +39,11 @@ import static org.springframework.transaction.annotation.Isolation.SERIALIZABLE;
 public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     private final DoctorAppointmentRepository doctorAppointmentRepository;
     private final DoctorRepository doctorRepository;
-    private final DoctorTimetableRepository doctorTimetableRepository;
     private final PatientRepository patientRepository;
     private final DoctorAppointmentMapper doctorAppointmentMapper;
     private final DoctorMapper doctorMapper;
 
+    @Transactional(readOnly = true)
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(Long id, LocalDate localDate) {
         if (doctorRepository.existsById(id)) {
@@ -57,6 +57,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {
         Doctor doctor = doctorRepository.findById(id)
