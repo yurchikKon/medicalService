@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Repository
 public interface AnalysisDirectionRepository extends JpaRepository<AnalysisDirection, Long> {
-    @Query(value =  "select  new com.blueTeam.medicalService.entities.AnalysisDirection ( ad.id, ad.status, ad.usage, ad.result, ad.analysis, ad.doctorsAppointment ) " +
+    @Query(value =  "select  ad  " +
                     "from AnalysisDirection ad " +
                     "join Analysis a " +
                     "on ad.analysis.id = a.id " +
@@ -20,8 +20,8 @@ public interface AnalysisDirectionRepository extends JpaRepository<AnalysisDirec
                     "on ad.doctorsAppointment.id = da.id " +
                     "join Patient p " +
                     "on da.patient.id = p.id "+
-                    "where ad.usage =:used " +
-                    "and p.id =: customer"
+                    "where ad.usage = 'USED' " +
+                    "and p.id =:customerId"
     )
     List<AnalysisDirection> findAllByPatientidAndUsage(Long customerId);
 }

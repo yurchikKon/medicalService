@@ -3,6 +3,7 @@ package com.blueTeam.medicalService.services.implementations;
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.entities.AnalysisDirection;
 import com.blueTeam.medicalService.entities.enums.Usage;
+import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
 import com.blueTeam.medicalService.repositories.AnalysisDirectionRepository;
 import com.blueTeam.medicalService.services.interfaces.AnalysisDirectionService;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +18,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
 
-    public final AnalysisDirectionRepository analysisDirectionRepository;
+    private final AnalysisDirectionRepository analysisDirectionRepository;
+    private final AnalysisDirectionMapper analysisDirectionMapper;
 
     @Override
-    public List<AnalysisDirection> findAllByPatientidAndUsage(Long patientid) {
-        List<AnalysisDirection> analysisDirectionList = analysisDirectionRepository.findAllByPatientidAndUsage(patientid);
-        return analysisDirectionList;
+    public List<AnalysisDirectionDto> findAllByPatientidAndUsage(Long patientId) {
+        return analysisDirectionRepository.findAllByPatientidAndUsage(patientId).stream()
+                .map(analysisDirectionMapper::mapToDto)
+                .toList();
     }
 }

@@ -26,7 +26,7 @@ public class TestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<AnalysisDirection>> getAnalysisDirection(@PathVariable("id") Long id) {
+    public ResponseEntity<List<AnalysisDirectionDto>> getAnalysisDirection(@PathVariable("id") Long id) {
         return ResponseEntity.ok(analysisDirectionService.findAllByPatientidAndUsage(id));
     }
 }

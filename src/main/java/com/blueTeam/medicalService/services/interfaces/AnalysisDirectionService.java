@@ -9,5 +9,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AnalysisDirectionService {
-    public List<AnalysisDirection> findAllByPatientidAndUsage(Long patientid);
+    public List<AnalysisDirectionDto> findAllByPatientidAndUsage(Long patientid);
 }
