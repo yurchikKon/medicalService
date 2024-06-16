@@ -34,10 +34,10 @@ public class DoctorAppointment {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Notification notification;
 
     @ManyToMany
