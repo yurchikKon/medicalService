@@ -40,4 +40,16 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
             throw new ResourceAlreadyExistException("Analysis has already been passed");
         }
     }
+
+    private final AnalysisDirectionRepository analysisDirectionRepository;
+    @Override
+    public void changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult) {
+        AnalysisDirection analysisDirection = analysisDirectionRepository.findById(idAnalysisDirection)
+                .orElseThrow(() -> new EntityNotFoundException("Invalid id: " + idAnalysisDirection));
+            if(analysisDirection.getUsage()==Usage.USED){
+                analysisDirection.setResult(newResult);
+                analysisDirectionRepository.save(analysisDirection);
+                log.info("Изменена запись в результатах анализа на: {}", newResult);
+            }else log.info("Выбранный анализ имеет статус UNUSED.");
+        }
 }
