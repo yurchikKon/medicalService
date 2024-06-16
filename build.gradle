@@ -1,4 +1,4 @@
-plugins {
+ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.6'
     id 'io.spring.dependency-management' version '1.1.5'
@@ -37,6 +37,12 @@ allprojects {
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
         implementation 'org.flywaydb:flyway-core'
         implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+        implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+        runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+        runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+
 
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'org.postgresql:postgresql'
