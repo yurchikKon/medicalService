@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.test;
+package com.blueTeam.medicalService.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
