@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface AnalysisDirectionService {
     AnalysisDirectionDto passAnalysis(Long id);
-    public void changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult);
+    AnalysisDirectionDto changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult);
 }

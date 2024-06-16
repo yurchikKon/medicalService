@@ -16,4 +16,9 @@ public class AnalysisDirectionController {
     public AnalysisDirectionDto passAnalysis(@PathVariable Long id) {
         return analysisDirectionService.passAnalysis(id);
     }
+
+    @PutMapping("/{id}/result")
+    public AnalysisDirectionDto changeAnalysisResult(@PathVariable Long id, @RequestParam String newResult) {
+        return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
+    }
 }
