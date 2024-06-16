@@ -28,6 +28,7 @@ public interface DoctorAppointmentMapper {
                 @Mapping(source = "doctor", target = "doctorDto"),
                 @Mapping(source = "patient", target = "patientDto"),
                 @Mapping(source = "medicalServices", target = "medicalRecipientDtos"),
+                @Mapping(source = "directions", target = "specialDoctorDirectionDtos"),
                 @Mapping(source = "doctorsRemark", target = "doctorRemarkDto"),
                 @Mapping(source = "analysisDirections", target = "analysisDirectionDtos"),
                 @Mapping(source = "medicalReceipts", target = "medicalReceiptDtos"),
@@ -36,6 +37,17 @@ public interface DoctorAppointmentMapper {
         })
         DoctorAppointmentRepresentationDto mapToDto(DoctorAppointment entity);
 
+        @Mappings({
+                @Mapping(source = "doctorDto", target = "doctor"),
+                @Mapping(source = "patientDto", target = "patient"),
+                @Mapping(source = "medicalRecipientDtos", target = "medicalServices"),
+                @Mapping(source = "specialDoctorDirectionDtos", target = "directions"),
+                @Mapping(source = "doctorRemarkDto", target = "doctorsRemark"),
+                @Mapping(source = "analysisDirectionDtos", target = "analysisDirections"),
+                @Mapping(source = "medicalReceiptDtos", target = "medicalReceipts"),
+                @Mapping(source = "appointmentReviewDto", target = "appointmentReview"),
+                @Mapping(source = "payReceiptDtos", target = "payReceipts")
+        })
         DoctorAppointment mapToEntity(DoctorAppointmentRepresentationDto dto);
 
         DoctorAppointment mapToEntity(DoctorAppointmentCreateEditDto dto);
