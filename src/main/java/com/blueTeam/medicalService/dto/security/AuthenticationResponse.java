@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.security.auth;
+package com.blueTeam.medicalService.dto.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
-    private String login;
-    private String password;
+public class AuthenticationResponse {
+    private String token;
 }

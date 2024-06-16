@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.security.config;
+package com.blueTeam.medicalService.config;
 
 import com.blueTeam.medicalService.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

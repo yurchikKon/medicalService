@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.security.config;
+package com.blueTeam.medicalService.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
