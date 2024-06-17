@@ -27,7 +27,7 @@ public abstract class DoctorMapper {
 
     public abstract DoctorRepresentationDto mapToDto(Doctor doctor);
 
-    public abstract Doctor mapToEntity(UserRepresentationDto dto);
+    public abstract Doctor mapToEntity(DoctorRepresentationDto dto);
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     public abstract Doctor mapToEntity(UserCreateEditDto dto);

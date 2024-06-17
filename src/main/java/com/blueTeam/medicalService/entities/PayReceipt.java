@@ -4,9 +4,7 @@ import com.blueTeam.medicalService.entities.enums.PaymentMethod;
 import com.blueTeam.medicalService.entities.enums.PaymentType;
 import com.blueTeam.medicalService.entities.enums.ReceiptStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Entity
 @AllArgsConstructor
+@Builder
 @Table(name = "pay_receipt")
 public class PayReceipt {
     @Id
