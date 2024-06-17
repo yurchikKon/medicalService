@@ -24,7 +24,7 @@ public class PatientController {
         return payReceiptService.findAllByPatientId(patientId);
     }
 
-    @GetMapping("/{patientId}/analysisDirections")
+    @GetMapping("/{patientId}/analysisDirections/valid")
     public List<AnalysisDirectionDto> findActivePatientAnalysisDirections (@PathVariable Long patientId) {
         return patientService.findActivePatientAnalysisDirections(patientId);
     }
