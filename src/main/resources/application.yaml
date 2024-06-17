@@ -4,7 +4,7 @@ spring:
   config:
     import: optional:secrets.yaml
   datasource:
-    url: jdbc:postgresql://localhost:5432/medicalService
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified
     username: postgres
     password: 123
     driver-class-name: org.postgresql.Driver
