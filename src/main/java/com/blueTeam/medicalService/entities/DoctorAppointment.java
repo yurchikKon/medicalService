@@ -4,6 +4,7 @@ import com.blueTeam.medicalService.entities.enums.Notification;
 import com.blueTeam.medicalService.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcType;
@@ -15,8 +16,9 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-@Entity
 @AllArgsConstructor
+@Entity
+@Builder
 @Table(name = "appointment_doctor")
 public class DoctorAppointment {
 
