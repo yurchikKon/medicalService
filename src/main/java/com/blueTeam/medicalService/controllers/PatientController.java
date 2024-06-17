@@ -2,6 +2,7 @@ package com.blueTeam.medicalService.controllers;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
+import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 import com.blueTeam.medicalService.services.interfaces.PatientService;
 import com.blueTeam.medicalService.services.interfaces.PayReceiptService;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +28,10 @@ public class PatientController {
     @GetMapping("/{patientId}/analysisDirections/valid")
     public List<AnalysisDirectionDto> findActivePatientAnalysisDirections (@PathVariable Long patientId) {
         return patientService.findActivePatientAnalysisDirections(patientId);
+    }
+
+    @GetMapping("/{id}/appointments/scheduled")
+    public List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(@PathVariable Long patientId) {
+        return patientService.findActivePatientAppointments(patientId);
     }
 }
