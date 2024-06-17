@@ -6,8 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
 
@@ -16,23 +18,28 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "payment_method")
-public class PaymentMethod {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Column(name = "details")
-    String details;
+    BigDecimal balance;
 
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    PaymentType paymentType;
+    @OneToOne(cascade = ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    User user;
 
-    @OneToOne
-    PaymentTransaction transaction;
+    @OneToOne(cascade = ALL)
+    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    Currency currency;
+
+    @OneToOne(mappedBy = "sender")
+    PaymentTransaction senderTransaction;
+
+    @OneToOne(mappedBy = "receiver")
+    PaymentTransaction receiverTransaction;
 }

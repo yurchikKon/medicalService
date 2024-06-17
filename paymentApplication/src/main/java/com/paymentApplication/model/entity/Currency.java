@@ -1,6 +1,9 @@
 package com.paymentApplication.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,16 +17,14 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "payment_type")
-public class PaymentType {
+public class Currency {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     Long id;
 
-    @Column(name = "name", nullable = false)
     String name;
 
-    @OneToOne(mappedBy = "paymentType")
-    PaymentMethod paymentMethod;
+    @OneToOne(mappedBy = "currency")
+    Account account;
 }
