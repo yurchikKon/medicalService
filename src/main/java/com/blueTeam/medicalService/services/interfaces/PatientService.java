@@ -1,9 +1,11 @@
 package com.blueTeam.medicalService.services.interfaces;
 
-import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
+
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 
 import java.util.List;
 
 public interface PatientService {
-    List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(Long patientId);
-   }
+    List<AnalysisDirectionDto> findActivePatientAnalysisDirections(Long patientId);
+
+}

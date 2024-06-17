@@ -1,6 +1,8 @@
 package com.blueTeam.medicalService.controllers;
 
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
+import com.blueTeam.medicalService.services.interfaces.PatientService;
 import com.blueTeam.medicalService.services.interfaces.PayReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +17,15 @@ import java.util.List;
 @RequestMapping("api/v1/patients")
 public class PatientController {
     private final PayReceiptService payReceiptService;
+    private final PatientService patientService;
 
     @GetMapping("/{patientId}/payReceipts")
     public List<PayReceiptDto> findAllPayReceiptsByPatientId(@PathVariable Long patientId) {
         return payReceiptService.findAllByPatientId(patientId);
+    }
+
+    @GetMapping("/{patientId}/analysisDirections/valid")
+    public List<AnalysisDirectionDto> findActivePatientAnalysisDirections (@PathVariable Long patientId) {
+        return patientService.findActivePatientAnalysisDirections(patientId);
     }
 }
