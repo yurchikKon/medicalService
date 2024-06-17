@@ -18,11 +18,20 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/doctors")
 public class DoctorController {
+
     private final DoctorAppointmentService doctorAppointmentService;
+    private final DoctorService doctorService;
 
     @GetMapping("/{doctorId}/appointments/date/{date}")
     public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(@PathVariable Long doctorId,
         @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return doctorAppointmentService.findAllScheduledByDoctorIdAndDate(doctorId, date);
+      
+      
+
+    @GetMapping("/{id}/doctorInfo")
+    public DoctorRepresentationDto getDoctorInfoDto(@PathVariable Long doctorId) {
+        return doctorService.getDoctorInfoDto(doctorId);
+
     }
 }
