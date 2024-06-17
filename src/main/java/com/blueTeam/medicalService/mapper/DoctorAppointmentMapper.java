@@ -2,7 +2,7 @@ package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentCreateEditDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.entities.DoctorAppointment;
+import com.blueTeam.medicalService.entity.DoctorAppointment;
 import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 

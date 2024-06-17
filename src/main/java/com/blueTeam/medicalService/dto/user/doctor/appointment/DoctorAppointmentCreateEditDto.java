@@ -3,7 +3,7 @@ package com.blueTeam.medicalService.dto.user.doctor.appointment;
 import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
 import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
 import com.blueTeam.medicalService.dto.user.patient.PatientRepresentationDto;
-import com.blueTeam.medicalService.entities.enums.Status;
+import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.NotBlank;
 

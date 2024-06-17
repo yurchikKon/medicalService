@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.config;
 
-import com.blueTeam.medicalService.repositories.UserRepository;
+import com.blueTeam.medicalService.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

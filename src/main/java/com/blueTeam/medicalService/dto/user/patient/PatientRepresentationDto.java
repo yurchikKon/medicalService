@@ -2,7 +2,7 @@ package com.blueTeam.medicalService.dto.user.patient;
 
 import com.blueTeam.medicalService.dto.user.UserRepresentationDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.entities.enums.Gender;
+import com.blueTeam.medicalService.entity.enums.Gender;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.FieldDefaults;
