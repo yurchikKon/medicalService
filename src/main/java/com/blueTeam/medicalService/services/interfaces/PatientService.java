@@ -5,6 +5,5 @@ import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointment
 import java.util.List;
 
 public interface PatientService {
-    List<DoctorAppointmentRepresentationDto> getActivePatientAppointmentDto(Long id);
-
+    List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(Long patientId);
    }

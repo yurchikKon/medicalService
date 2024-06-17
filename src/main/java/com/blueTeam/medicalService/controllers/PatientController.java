@@ -14,7 +14,7 @@ public class PatientController {
     private final PatientService patientService;
 
     @GetMapping("/{id}/active-appointments")
-    public List<DoctorAppointmentRepresentationDto> getActiveAppointments(@PathVariable long id) {
-        return patientService.getActivePatientAppointmentDto(id);
+    public List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(@PathVariable Long patientId) {
+        return patientService.findActivePatientAppointments(patientId);
     }
 }

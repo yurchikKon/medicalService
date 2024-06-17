@@ -9,6 +9,7 @@ import com.blueTeam.medicalService.services.interfaces.PatientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,18 +17,19 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PatientServiceImpl implements PatientService {
     private final DoctorAppointmentMapper mapper;
     private final DoctorAppointmentRepository doctorAppointmentRepository;
 
-    public List<DoctorAppointmentRepresentationDto> getActivePatientAppointmentDto(Long id) {
-
+    @Override
+    public List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(Long patientId) {
         List<DoctorAppointment> appointments =
-                doctorAppointmentRepository.findAllByPatientIdAndStatus(id, Status.SCHEDULED);
+                doctorAppointmentRepository.findAllByPatientIdAndStatus(patientId, Status.SCHEDULED);
         log.info("Found: {} appointments",appointments.size());
+
         return appointments.stream()
                 .map(mapper::mapToDto)
                 .collect(Collectors.toList());
-
     }
 }

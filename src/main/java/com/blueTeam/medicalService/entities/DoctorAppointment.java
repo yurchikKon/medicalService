@@ -36,7 +36,7 @@ public class DoctorAppointment {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @JdbcType(PostgreSQLEnumJdbcType.class)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Enumerated(EnumType.STRING)
