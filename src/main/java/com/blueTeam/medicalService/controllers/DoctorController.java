@@ -1,8 +1,9 @@
 package com.blueTeam.medicalService.controllers;
 
+import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.entities.DoctorAppointment;
 import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
+import com.blueTeam.medicalService.services.interfaces.DoctorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,15 +23,15 @@ public class DoctorController {
     private final DoctorService doctorService;
 
     @GetMapping("/{doctorId}/appointments/date/{date}")
-    public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(@PathVariable Long doctorId,
-        @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(
+            @PathVariable Long doctorId,
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return doctorAppointmentService.findAllScheduledByDoctorIdAndDate(doctorId, date);
-      
-      
+    }
 
-    @GetMapping("/{id}/doctorInfo")
+
+    @GetMapping("/{doctorId}/doctorInfo")
     public DoctorRepresentationDto getDoctorInfoDto(@PathVariable Long doctorId) {
         return doctorService.getDoctorInfoDto(doctorId);
-
     }
 }
