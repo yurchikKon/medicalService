@@ -5,9 +5,10 @@ import com.blueTeam.medicalService.dto.medicalRecipient.MedicalProcedureDto;
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
 import com.blueTeam.medicalService.dto.receipt.MedicalReceiptDto;
 import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
+import com.blueTeam.medicalService.dto.user.doctor.SpecialDoctorDirectionDto;
 import com.blueTeam.medicalService.dto.user.doctor.remark.DoctorRemarkDto;
 import com.blueTeam.medicalService.dto.user.patient.PatientRepresentationDto;
-import com.blueTeam.medicalService.entities.enums.Status;
+import com.blueTeam.medicalService.entity.enums.Status;
 import lombok.Builder;
 import lombok.Value;
 
@@ -24,6 +25,7 @@ public class DoctorAppointmentRepresentationDto {
     LocalDateTime dateTime;
     Status status;
     Set<MedicalProcedureDto> medicalRecipientDtos;
+    List<SpecialDoctorDirectionDto> specialDoctorDirectionDtos;
     DoctorRemarkDto doctorRemarkDto;
     List<AnalysisDirectionDto> analysisDirectionDtos;
     List<MedicalReceiptDto> medicalReceiptDtos;

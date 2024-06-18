@@ -2,7 +2,7 @@ package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
 import com.blueTeam.medicalService.dto.user.UserRepresentationDto;
-import com.blueTeam.medicalService.entities.User;
+import com.blueTeam.medicalService.entity.User;
 import com.blueTeam.medicalService.mapper.util.PasswordEncoderUtil;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
