@@ -23,7 +23,7 @@ import java.util.List;
 @Slf4j
 public class DoctorTimetableController {
     private final DoctorTimetableService doctorTimetableService;
-    @GetMapping("/date/{date}/dayOfWeek/{dayOfWeek})")
+    @GetMapping("/date/{date})")
     public ResponseEntity<List<DoctorTimetableDto>> getDoctorTimetablesByDayOfWeek(
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
