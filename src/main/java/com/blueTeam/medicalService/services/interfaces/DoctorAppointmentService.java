@@ -8,5 +8,5 @@ import java.util.List;
 public interface DoctorAppointmentService {
     List<DoctorAppointment> getPlannedAppointmentsForNotification();
 
-    void saveAllAppointments(List<DoctorAppointment> doctorAppointments);
+    List<DoctorAppointment> saveAllAppointments(List<DoctorAppointment> doctorAppointments);
 }

@@ -32,3 +32,9 @@ spring:
     cache: false
     encoding: UTF-8
     mode: HTML
+properties:
+  scheduled:
+    cron: '0 0 8 * * ?'
+  email:
+    subject: 'Прием у врача. Напоминание'
+    template: mail-template

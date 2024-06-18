@@ -6,10 +6,11 @@ import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentNotifica
 import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
 import com.blueTeam.medicalService.services.interfaces.EmailSender;
 import jakarta.mail.MessagingException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,20 +18,16 @@ import java.util.Map;
 
 @Slf4j
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class DoctorAppointmentNotificationServiceImpl implements DoctorAppointmentNotificationService {
     private final DoctorAppointmentService appointmentService;
     private final EmailSender emailSenderImpl;
 
-    private static final String EMAIL_SUBJECT = "Doctor Appointment Notification";
-
-    public DoctorAppointmentNotificationServiceImpl(DoctorAppointmentService appointmentRepository, EmailSender emailSenderImpl) {
-        this.appointmentService = appointmentRepository;
-        this.emailSenderImpl = emailSenderImpl;
-    }
+    @Value("${properties.email.subject:'Прием у врача'}")
+    private String emailSubject;
 
     @Override
-    @Scheduled(cron = "0 0 8 * * ?")
+    @Scheduled(cron = "${properties.scheduled.cron}")
     public void notifyPatients() {
         var todayAppointments = appointmentService.getPlannedAppointmentsForNotification();
         if (todayAppointments.isEmpty()) {
@@ -40,11 +37,10 @@ public class DoctorAppointmentNotificationServiceImpl implements DoctorAppointme
         notifyPatients();
     }
 
-
     private void sendEmailNotification(List<DoctorAppointment> appointments) {
         try {
             for (var appointment : appointments) {
-                emailSenderImpl.sendMessage(appointment.getPatient().getEmail(), EMAIL_SUBJECT, getDataForEmailTemplate(appointment));
+                emailSenderImpl.sendMessage(appointment.getPatient().getEmail(), emailSubject, getDataForEmailTemplate(appointment));
                 appointment.setNotification(Notification.DONE);
             }
         } catch (MessagingException e) {
@@ -55,7 +51,7 @@ public class DoctorAppointmentNotificationServiceImpl implements DoctorAppointme
     }
 
     private Map<String, Object> getDataForEmailTemplate(DoctorAppointment appointment) {
-        Map<String, Object> templateModel = new HashMap<>();
+        var templateModel = new HashMap<String, Object>();
         templateModel.put("patientLastName", appointment.getPatient().getLastName());
         templateModel.put("patientFirstName", appointment.getPatient().getFirstName());
         templateModel.put("doctorLastName", appointment.getDoctor().getLastName());
