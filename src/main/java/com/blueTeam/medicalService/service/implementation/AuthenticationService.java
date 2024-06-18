@@ -25,6 +25,7 @@ public class AuthenticationService {
     private final PatientRepository patientRepository;
     private final PatientMapper patientMapper;
 
+
     public AuthenticationResponse registerPatient (PatientCreateEditDto dto) {
 
         Patient patient = patientMapper.mapToEntity(dto);
