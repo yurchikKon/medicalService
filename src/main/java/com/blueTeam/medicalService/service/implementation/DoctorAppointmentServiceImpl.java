@@ -1,14 +1,15 @@
 package com.blueTeam.medicalService.service.implementation;
 
+import com.blueTeam.medicalService.dto.user.DoctorAppointmentFormDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.entity.DoctorAppointment;
 import com.blueTeam.medicalService.entity.DoctorTimetable;
 import com.blueTeam.medicalService.entity.Patient;
+import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
-import com.blueTeam.medicalService.mapper.DoctorAppointmentMapper;
-import com.blueTeam.medicalService.mapper.DoctorMapper;
+import com.blueTeam.medicalService.mapper.*;
 import com.blueTeam.medicalService.repository.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repository.DoctorRepository;
 import com.blueTeam.medicalService.repository.PatientRepository;
@@ -23,7 +24,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.blueTeam.medicalService.entity.enums.Notification.PLANED;
 import static com.blueTeam.medicalService.entity.enums.Status.CANCELED;
@@ -39,6 +44,14 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     private final PatientRepository patientRepository;
     private final DoctorAppointmentMapper doctorAppointmentMapper;
     private final DoctorMapper doctorMapper;
+    private final DoctorAppointmentFormMapper doctorAppointmentFormMapper;
+    private final MedicalProcedureMapper medicalProcedureMapper;
+    private final SpecialDoctorDirectionMapper specialDoctorDirectionMapper;
+    private final DoctorRemarkMapper doctorRemarkMapper;
+    private final AnalysisDirectionMapper analysisDirectionMapper;
+    private final MedicalReceiptMapper medicalReceiptMapper;
+    private final PatientDiagnosisMapper patientDiagnosisMapper;
+    private final PayReceiptMapper payReceiptMapper;
 
     @Transactional(readOnly = true)
     @Override
@@ -119,6 +132,33 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
     }
 
+    @Override
+    public List<DoctorAppointmentRepresentationDto> getMedcard(Long patientId) {
+        patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist"));
+        List<DoctorAppointment> doctorAppointments = doctorAppointmentRepository.findAllByPatientId(patientId);
+        log.info("Presentation of medical card");
+        return doctorAppointments.stream()
+                .filter(appointment -> appointment.getStatus().equals(Status.COMPLETED))
+                .map(doctorAppointmentMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public DoctorAppointmentFormDto addFormAfterAppointment(Long appointmentId, DoctorAppointmentFormDto dto) {
+        DoctorAppointment doctorAppointment = doctorAppointmentRepository
+                .findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("No appointments was found with such id"));
+        if (!doctorAppointment.getStatus().equals(SCHEDULED)) {
+            throw new InvalidStateException("It is not possible to add a meeting form whose status is not SCHEDULED");
+        }
+        doctorAppointment.setStatus(Status.COMPLETED);
+        completeDoctorAppointment(doctorAppointment, dto);
+        doctorAppointmentRepository.save(doctorAppointment);
+        log.info("Was added form after appointment");
+        return doctorAppointmentFormMapper.mapToDto(doctorAppointment);
+    }
+
     private void checkAppointmentDateTime(LocalDateTime dateTime) {
         int minutes = dateTime.toLocalTime().getMinute();
         log.info(String.valueOf(Duration.between(LocalDateTime.now(), dateTime).getSeconds()));
@@ -178,5 +218,37 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
             dateTimeSet.add(dto.getDateTime());
         }
         return dateTimeSet;
+    }
+
+    private void completeDoctorAppointment(DoctorAppointment entity, DoctorAppointmentFormDto dto) {
+
+        if (dto.getMedicalServicesDto() != null) {
+            entity.setMedicalServices(dto.getMedicalServicesDto().stream()
+                    .map(medicalProcedureMapper::mapToEntity).collect(Collectors.toSet()));
+        }
+        if (dto.getDirections() != null) {
+            entity.setDirections(dto.getDirections().stream()
+                    .map(specialDoctorDirectionMapper::mapToEntity).toList());
+        }
+        if (dto.getDoctorRemarkDto() != null) {
+            entity.setDoctorsRemark(doctorRemarkMapper.mapToEntity(dto.getDoctorRemarkDto()));
+        }
+        if (dto.getAnalysisDirectionDto() != null) {
+            entity.setAnalysisDirections(dto.getAnalysisDirectionDto().stream()
+                    .map(analysisDirectionMapper::mapToEntity).toList());
+        }
+        if (dto.getMedicalReceiptDto() != null) {
+            entity.setMedicalReceipts(dto.getMedicalReceiptDto().stream()
+                    .map(medicalReceiptMapper::mapToEntity).toList());
+
+        }
+        if (dto.getPatientsDiagnosisListDto() != null) {
+            entity.setPatientsDiagnosisList(dto.getPatientsDiagnosisListDto().stream()
+                    .map(patientDiagnosisMapper::mapToEntity).toList());
+        }
+        if (dto.getPayReceipts() != null) {
+            entity.setPayReceipts(dto.getPayReceipts().stream()
+                    .map(payReceiptMapper::mapToEntity).toList());
+        }
     }
 }

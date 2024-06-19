@@ -13,8 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.blueTeam.medicalService.entity.enums.DirectionStatus.*;
-import static com.blueTeam.medicalService.entity.enums.Usage.*;
+import static com.blueTeam.medicalService.entity.enums.DirectionStatus.INVALID;
+import static com.blueTeam.medicalService.entity.enums.DirectionStatus.VALID;
+import static com.blueTeam.medicalService.entity.enums.Usage.USED;
 
 @Service
 @RequiredArgsConstructor
