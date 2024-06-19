@@ -5,6 +5,7 @@ import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.entity.DoctorAppointment;
 import com.blueTeam.medicalService.entity.DoctorTimetable;
 import com.blueTeam.medicalService.entity.Patient;
+import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.mapper.DoctorAppointmentMapper;
@@ -24,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.blueTeam.medicalService.entity.enums.Notification.PLANED;
 import static com.blueTeam.medicalService.entity.enums.Status.CANCELED;
@@ -117,6 +119,18 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         else {
             throw new InvalidStateException("Appointment with such id is not scheduled");
         }
+    }
+
+    @Override
+    public List<DoctorAppointmentRepresentationDto> getMedcard(Long patientId) {
+        patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient with such id does not exist"));
+        List<DoctorAppointment> doctorAppointments = doctorAppointmentRepository.findAllByPatientId(patientId);
+        log.info("Presentation of medical card");
+        return doctorAppointments.stream()
+                .filter(appointment -> appointment.getStatus().equals(Status.COMPLETED))
+                .map(doctorAppointmentMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 
     private void checkAppointmentDateTime(LocalDateTime dateTime) {

@@ -15,4 +15,6 @@ public interface DoctorAppointmentService {
     DoctorAppointmentRepresentationDto createAppointment(Long patientId, Long doctorId, LocalDateTime dateTime);
 
     DoctorAppointmentRepresentationDto cancelAppointment(Long appointmentId);
+
+    List<DoctorAppointmentRepresentationDto> getMedcard(Long patientId);
 }
