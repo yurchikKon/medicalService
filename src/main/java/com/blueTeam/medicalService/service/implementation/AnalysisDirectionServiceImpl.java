@@ -20,7 +20,6 @@ import java.util.List;
 
 import static com.blueTeam.medicalService.entity.enums.DirectionStatus.INVALID;
 import static com.blueTeam.medicalService.entity.enums.DirectionStatus.VALID;
-import static com.blueTeam.medicalService.entity.enums.Usage.UNUSED;
 import static com.blueTeam.medicalService.entity.enums.Usage.USED;
 
 @Service
@@ -66,8 +65,8 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<AnalysisDirectionNamedDto> getActiveTestAppointments(Long id) {
-        var testAppointments = analysisDirectionRepository.findUnusedAnalysisByPatientId(id, UNUSED);
+    public List<AnalysisDirectionNamedDto> getUsedAnalysisRecords(Long id) {
+        var testAppointments = analysisDirectionRepository.findUnusedAnalysisByPatientId(id, USED);
         return testAppointments == null
                 ? Collections.emptyList()
                 : testAppointments.stream().map(t -> analysisDirectionNamedMapper.mapToNamedDto(t, t.getAnalysis())).toList();

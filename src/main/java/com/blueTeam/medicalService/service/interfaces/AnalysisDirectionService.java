@@ -8,5 +8,5 @@ import java.util.List;
 public interface AnalysisDirectionService {
     AnalysisDirectionDto passAnalysis(Long id);
     AnalysisDirectionDto changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult);
-    List<AnalysisDirectionNamedDto> getActiveTestAppointments(Long id);
+    List<AnalysisDirectionNamedDto> getUsedAnalysisRecords(Long id);
 }

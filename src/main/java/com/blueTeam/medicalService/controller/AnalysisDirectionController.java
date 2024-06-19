@@ -25,7 +25,7 @@ public class AnalysisDirectionController {
     }
 
     @GetMapping("/patient/{id}")
-    public List<AnalysisDirectionNamedDto> getActiveAnalysisForPatient(@PathVariable Long id) {
-        return analysisDirectionService.getActiveTestAppointments(id);
+    public List<AnalysisDirectionNamedDto> getUsedAnalysisForPatient(@PathVariable Long id) {
+        return analysisDirectionService.getUsedAnalysisRecords(id);
     }
 }
