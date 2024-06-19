@@ -1,9 +1,12 @@
 package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionNamedDto;
 import com.blueTeam.medicalService.service.interfaces.AnalysisDirectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +22,10 @@ public class AnalysisDirectionController {
     @PutMapping("/{id}/result")
     public AnalysisDirectionDto changeAnalysisResult(@PathVariable Long id, @RequestParam String newResult) {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
+    }
+
+    @GetMapping("/patient/{id}")
+    public List<AnalysisDirectionNamedDto> getActiveAnalysisForPatient(@PathVariable Long id) {
+        return analysisDirectionService.getActiveTestAppointments(id);
     }
 }
