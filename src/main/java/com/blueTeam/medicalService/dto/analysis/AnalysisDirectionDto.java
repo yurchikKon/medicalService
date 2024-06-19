@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.dto.analysis;
 
-import com.blueTeam.medicalService.entities.enums.DirectionStatus;
-import com.blueTeam.medicalService.entities.enums.Usage;
+import com.blueTeam.medicalService.entity.enums.DirectionStatus;
+import com.blueTeam.medicalService.entity.enums.Usage;
 import com.blueTeam.medicalService.validation.group.CreateAction;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.NotBlank;

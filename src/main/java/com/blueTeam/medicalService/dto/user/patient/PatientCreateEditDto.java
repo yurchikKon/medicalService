@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.dto.user.patient;
 
 import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
-import com.blueTeam.medicalService.entities.enums.Gender;
+import com.blueTeam.medicalService.entity.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

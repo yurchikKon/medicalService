@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.dto.user;
 
-import com.blueTeam.medicalService.entities.enums.Role;
+import com.blueTeam.medicalService.entity.enums.Role;
 import com.blueTeam.medicalService.validation.group.CreateAction;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.Email;
