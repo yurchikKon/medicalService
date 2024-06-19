@@ -1,5 +1,6 @@
 package com.blueTeam.medicalService.controller;
 
+import com.blueTeam.medicalService.dto.user.DoctorAppointmentFormDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 import com.blueTeam.medicalService.service.interfaces.DoctorAppointmentService;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,11 @@ public class DoctorAppointmentController {
     public DoctorAppointmentRepresentationDto cancelAppointment(@PathVariable Long appointmentId) {
         return doctorAppointmentService.cancelAppointment(appointmentId);
     }
+
+    @PatchMapping("/{appointmentId}")
+    public DoctorAppointmentFormDto addFormAfterAppointment(@PathVariable Long appointmentId,
+                                                            @RequestBody DoctorAppointmentFormDto dto) {
+        return doctorAppointmentService.addFormAfterAppointment(appointmentId, dto);
+    }
+
 }

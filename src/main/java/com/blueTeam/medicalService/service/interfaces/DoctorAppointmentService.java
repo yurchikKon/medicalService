@@ -1,5 +1,6 @@
 package com.blueTeam.medicalService.service.interfaces;
 
+import com.blueTeam.medicalService.dto.user.DoctorAppointmentFormDto;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
 
 import java.time.LocalDate;
@@ -17,4 +18,7 @@ public interface DoctorAppointmentService {
     DoctorAppointmentRepresentationDto cancelAppointment(Long appointmentId);
 
     List<DoctorAppointmentRepresentationDto> getMedcard(Long patientId);
+
+    DoctorAppointmentFormDto addFormAfterAppointment(Long appointmentId, DoctorAppointmentFormDto dto);
+
 }

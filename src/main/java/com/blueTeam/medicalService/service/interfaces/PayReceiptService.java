@@ -9,4 +9,6 @@ public interface PayReceiptService {
     PayReceiptDto createAnalysisPayReceipt(Long analysisDirectionId);
 
     List<PayReceiptDto> findAllByPatientId(Long id);
+
+    PayReceiptDto createDoctorAppointmentPayReceipt(Long appointmentId);
 }
