@@ -23,7 +23,7 @@ public class DoctorAppointmentController {
     }
 
     @GetMapping("/date/{date}")
-    public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         List<DoctorAppointmentRepresentationDto> appointments = doctorAppointmentService.getAllDoctorsAppointmentRepresentationDto(date);
         return appointments;
 
