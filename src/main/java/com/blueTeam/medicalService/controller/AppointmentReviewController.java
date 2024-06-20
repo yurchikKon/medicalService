@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.user.doctor.appointment.AppointmentReviewDto;
-import com.blueTeam.medicalService.service.interfaces.AppointmentReviewService;
+import com.blueTeam.medicalService.service.AppointmentReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
