@@ -34,6 +34,7 @@ public class DoctorAppointmentController {
         return doctorAppointmentService.createAppointment(patientId, doctorId, dateTime);
     }
 
+
     @PutMapping("/{appointmentId}")
     public DoctorAppointmentRepresentationDto cancelAppointment(@PathVariable Long appointmentId) {
         return doctorAppointmentService.cancelAppointment(appointmentId);
