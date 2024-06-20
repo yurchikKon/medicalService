@@ -6,7 +6,7 @@ import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
 import com.blueTeam.medicalService.repository.AnalysisDirectionRepository;
-import com.blueTeam.medicalService.service.interfaces.AnalysisDirectionService;
+import com.blueTeam.medicalService.service.AnalysisDirectionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

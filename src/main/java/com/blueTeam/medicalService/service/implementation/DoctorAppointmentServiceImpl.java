@@ -12,7 +12,7 @@ import com.blueTeam.medicalService.mapper.DoctorMapper;
 import com.blueTeam.medicalService.repository.DoctorAppointmentRepository;
 import com.blueTeam.medicalService.repository.DoctorRepository;
 import com.blueTeam.medicalService.repository.PatientRepository;
-import com.blueTeam.medicalService.service.interfaces.DoctorAppointmentService;
+import com.blueTeam.medicalService.service.DoctorAppointmentService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

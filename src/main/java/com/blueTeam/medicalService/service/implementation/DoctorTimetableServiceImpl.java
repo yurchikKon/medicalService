@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.service.implementation;
 
-import com.blueTeam.medicalService.service.interfaces.DoctorTimetableService;
+import com.blueTeam.medicalService.service.DoctorTimetableService;
 import org.springframework.stereotype.Service;
 
 @Service
