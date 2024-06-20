@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.service.implementation;
 
-import com.blueTeam.medicalService.service.interfaces.PatientDiagnosisService;
+import com.blueTeam.medicalService.service.PatientDiagnosisService;
 import org.springframework.stereotype.Service;
 
 @Service
