@@ -2,7 +2,7 @@ package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionNamedDto;
-import com.blueTeam.medicalService.service.interfaces.AnalysisDirectionService;
+import com.blueTeam.medicalService.service.AnalysisDirectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ public class AnalysisDirectionController {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
     }
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/patients/{id}")
     public List<AnalysisDirectionNamedDto> getUsedAnalysisForPatient(@PathVariable Long id) {
         return analysisDirectionService.getUsedAnalysisRecords(id);
     }
