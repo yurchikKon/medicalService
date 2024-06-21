@@ -7,7 +7,7 @@ import com.blueTeam.medicalService.entity.enums.DirectionStatus;
 import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
 import com.blueTeam.medicalService.repository.DoctorAppointmentRepository;
-import com.blueTeam.medicalService.service.interfaces.PatientService;
+import com.blueTeam.medicalService.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

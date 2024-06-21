@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.service.interfaces.DoctorAppointmentService;
+import com.blueTeam.medicalService.service.DoctorAppointmentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
