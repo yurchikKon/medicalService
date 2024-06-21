@@ -9,7 +9,7 @@ import com.blueTeam.medicalService.entity.enums.Usage;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.mapper.PayReceiptMapper;
 import com.blueTeam.medicalService.repository.*;
-import com.blueTeam.medicalService.service.interfaces.PayReceiptService;
+import com.blueTeam.medicalService.service.PayReceiptService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

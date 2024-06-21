@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
-import com.blueTeam.medicalService.service.interfaces.AnalysisDirectionService;
+import com.blueTeam.medicalService.service.AnalysisDirectionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

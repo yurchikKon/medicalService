@@ -4,7 +4,7 @@ import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
 import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.mapper.DoctorMapper;
 import com.blueTeam.medicalService.repository.DoctorRepository;
-import com.blueTeam.medicalService.service.interfaces.DoctorService;
+import com.blueTeam.medicalService.service.DoctorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

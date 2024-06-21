@@ -2,9 +2,9 @@ package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
+import com.blueTeam.medicalService.service.PatientService;
+import com.blueTeam.medicalService.service.PayReceiptService;
 import com.blueTeam.medicalService.dto.user.doctor.appointment.DoctorAppointmentRepresentationDto;
-import com.blueTeam.medicalService.service.interfaces.PatientService;
-import com.blueTeam.medicalService.service.interfaces.PayReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

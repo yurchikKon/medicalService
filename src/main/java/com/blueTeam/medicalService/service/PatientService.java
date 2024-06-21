@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.service.interfaces;
+package com.blueTeam.medicalService.service;
 
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
