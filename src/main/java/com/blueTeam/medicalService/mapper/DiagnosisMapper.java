@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.diagnosis.DiagnosisDto;
-import com.blueTeam.medicalService.entities.Diagnosis;
+import com.blueTeam.medicalService.entity.Diagnosis;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import org.springframework.stereotype.Component;

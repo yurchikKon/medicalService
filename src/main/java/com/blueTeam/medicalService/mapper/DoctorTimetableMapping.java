@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.user.doctor.timetable.DoctorTimetableDto;
-import com.blueTeam.medicalService.entities.DoctorTimetable;
+import com.blueTeam.medicalService.entity.DoctorTimetable;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

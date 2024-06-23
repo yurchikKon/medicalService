@@ -1,8 +1,8 @@
 package com.blueTeam.medicalService.dto.payment;
 
-import com.blueTeam.medicalService.entities.enums.PaymentMethod;
-import com.blueTeam.medicalService.entities.enums.PaymentType;
-import com.blueTeam.medicalService.entities.enums.ReceiptStatus;
+import com.blueTeam.medicalService.entity.enums.PaymentMethod;
+import com.blueTeam.medicalService.entity.enums.PaymentType;
+import com.blueTeam.medicalService.entity.enums.ReceiptStatus;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

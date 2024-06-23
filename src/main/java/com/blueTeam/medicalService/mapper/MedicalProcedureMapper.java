@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.medicalRecipient.MedicalProcedureDto;
-import com.blueTeam.medicalService.entities.MedicalProcedure;
+import com.blueTeam.medicalService.entity.MedicalProcedure;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
