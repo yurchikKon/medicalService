@@ -25,3 +25,26 @@ app:
     config:
       name: openFDA
       url: https://api.fda.gov
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: # Replace with mail service
+    password: # Replace with password for mail service
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  thymeleaf:
+    suffix: .html
+    cache: false
+    encoding: UTF-8
+    mode: HTML
+properties:
+  scheduled:
+    cron: '0 0 8 * * ?'
+  email:
+    subject: 'Прием у врача. Напоминание'
+    template: mail-template

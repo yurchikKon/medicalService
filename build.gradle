@@ -1,4 +1,4 @@
- plugins {
+plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.6'
     id 'io.spring.dependency-management' version '1.1.5'
@@ -41,6 +41,8 @@ allprojects {
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
         implementation 'org.flywaydb:flyway-core'
         implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.0'
+        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
         implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         implementation 'com.fasterxml.jackson.core:jackson-databind'
