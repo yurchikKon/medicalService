@@ -59,7 +59,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     public List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {
         Doctor doctor = doctorRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist"));
-        Set<LocalDateTime> dateTimeSet = fillDateTimeSet(findAllScheduledByDoctorIdAndDate(id, localDate));
+        Set<LocalDateTime> dateTimeSet = fillDateTimeSet(doctorAppointmentRepository.findAllScheduledByDoctorIdAndDate(id, localDate));
 
         List<DoctorAppointmentRepresentationDto> freeAppointments = generateAppointments(doctor, localDate)
             .stream()
@@ -171,11 +171,11 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
     }
 
-    private Set<LocalDateTime> fillDateTimeSet(List<DoctorAppointmentRepresentationDto> dtoList) {
+    private Set<LocalDateTime> fillDateTimeSet(List<DoctorAppointment> dtoList) {
         Set<LocalDateTime> dateTimeSet = new HashSet<>();
 
-        for (DoctorAppointmentRepresentationDto dto : dtoList) {
-            dateTimeSet.add(dto.getDateTime());
+        for (DoctorAppointment appointment : dtoList) {
+            dateTimeSet.add(appointment.getDateTime());
         }
         return dateTimeSet;
     }
