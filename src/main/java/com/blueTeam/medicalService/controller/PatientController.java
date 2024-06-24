@@ -34,4 +34,5 @@ public class PatientController {
     public List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(@PathVariable Long patientId) {
         return patientService.findActivePatientAppointments(patientId);
     }
+
 }

@@ -10,3 +10,4 @@ public interface PatientService {
     List<AnalysisDirectionDto> findActivePatientAnalysisDirections(Long patientId);
     List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(Long patientId);
 }
+
