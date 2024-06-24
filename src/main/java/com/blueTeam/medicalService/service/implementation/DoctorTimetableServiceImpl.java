@@ -25,9 +25,19 @@ public class DoctorTimetableServiceImpl implements DoctorTimetableService {
 
     @Override
     public List<DoctorTimetableDto> findDoctorTimetablesByDayOfWeek(DayOfWeek dayOfWeek) {
-        List<DoctorTimetableDto> timetables = doctorTimetableRepository.findDoctorsTimetableByDayOfWeek(dayOfWeek).stream()
+        if (isWeekend(dayOfWeek)) {
+            String errorMessage = "Выбран недопустимый день недели: " + dayOfWeek.toString();
+            log.error(errorMessage);
+            throw new IllegalArgumentException(errorMessage);
+        }
+
+        return doctorTimetableRepository.findDoctorsTimetableByDayOfWeek(dayOfWeek)
+                .stream()
                 .map(doctorTimetableMapping::mapToDto)
-                .collect(Collectors.toList());
-        return timetables;
+                .toList();
+    }
+
+    public boolean isWeekend(DayOfWeek dayOfWeek) {
+        return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
     }
 }

@@ -24,9 +24,7 @@ public class DoctorAppointmentController {
 
     @GetMapping("/date/{date}")
     public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        List<DoctorAppointmentRepresentationDto> appointments = doctorAppointmentService.getAllDoctorsAppointmentRepresentationDto(date);
-        return appointments;
-
+        return doctorAppointmentService.getAllDoctorsAppointmentsByDate(date);
     }
     @PostMapping("/{patientId}/{doctorId}")
     public DoctorAppointmentRepresentationDto createAppointment(@PathVariable Long patientId, @PathVariable Long doctorId,

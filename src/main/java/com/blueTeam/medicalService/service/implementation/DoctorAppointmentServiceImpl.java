@@ -55,18 +55,15 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
     }
     @Transactional(readOnly = true)
-    public List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentRepresentationDto(LocalDate localdate) {
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentsByDate(LocalDate localdate) {
         if (localdate.isAfter(LocalDate.now().plusWeeks(3))) {
             log.error("Дата слишком далеко в будущем: {}", localdate);
             throw new IllegalArgumentException("Дата слишком далеко в будущем");
         } else {
-            try {
-                List<DoctorAppointment> appointments = doctorAppointmentRepository.findAllByDateTime(localdate);
-                return appointments.stream().map(doctorAppointmentMapper::mapToDto).collect(Collectors.toList());
-            } catch (Exception e) {
-                log.error("Ошибка при получении приемов у врача: {}", e.getMessage());
-                throw new com.blueTeam.medicalService.exceptions.DoctorAppointmentNotFoundException("Ошибка при получении приемов у врача", e);
-            }
+                return doctorAppointmentRepository.findAllByDate(localdate)
+                                .stream()
+                                .map(doctorAppointmentMapper::mapToDto)
+                                .toList();
         }
     }
     @Transactional(readOnly = true)

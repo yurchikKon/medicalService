@@ -20,16 +20,11 @@ import java.util.List;
 @Slf4j
 public class DoctorTimetableController {
     private final DoctorTimetableService doctorTimetableService;
+
     @GetMapping("/date/{date})")
     public ResponseEntity<List<DoctorTimetableDto>> getDoctorTimetablesByDayOfWeek(
             @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();
-        if (dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY) {
-            String errorMessage = "Выбран недопустимый день недели: " + dayOfWeek.toString();
-            log.error(errorMessage);
-            return ResponseEntity.badRequest().body(null);
-        }
-        List<DoctorTimetableDto> timetables = doctorTimetableService.findDoctorTimetablesByDayOfWeek(dayOfWeek);
-        return ResponseEntity.ok(timetables);
+        return ResponseEntity.ok(doctorTimetableService.findDoctorTimetablesByDayOfWeek(dayOfWeek));
     }
 }

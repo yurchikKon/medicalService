@@ -16,6 +16,6 @@ public interface DoctorAppointmentService {
 
     DoctorAppointmentRepresentationDto cancelAppointment(Long appointmentId);
 
-    List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentRepresentationDto(LocalDate localdate);
+    List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentsByDate(LocalDate localdate);
 
 }

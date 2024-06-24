@@ -23,7 +23,7 @@ public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppoint
     List<DoctorAppointment> findAllByPatientIdAndStatus(Long patientId, Status status);
 
     @Query("SELECT d FROM DoctorAppointment d WHERE cast(d.dateTime as date)= :date")
-    List<DoctorAppointment> findAllByDateTime(@Param("date") LocalDate localDate);
+    List<DoctorAppointment> findAllByDate(@Param("date") LocalDate localDate);
 
 }
 
