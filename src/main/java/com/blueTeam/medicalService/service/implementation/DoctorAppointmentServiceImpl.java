@@ -40,6 +40,7 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
     private final DoctorAppointmentMapper doctorAppointmentMapper;
     private final DoctorMapper doctorMapper;
 
+
     @Transactional(readOnly = true)
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(Long id, LocalDate localDate) {
