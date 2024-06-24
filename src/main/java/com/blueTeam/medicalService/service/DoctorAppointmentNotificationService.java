@@ -1,4 +1,4 @@
-package com.blueTeam.medicalService.services.interfaces;
+package com.blueTeam.medicalService.service;
 
 public interface DoctorAppointmentNotificationService {
     void notifyPatients();

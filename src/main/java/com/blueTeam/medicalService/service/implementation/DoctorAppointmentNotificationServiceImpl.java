@@ -1,10 +1,10 @@
-package com.blueTeam.medicalService.services.implementations;
+package com.blueTeam.medicalService.service.implementation;
 
-import com.blueTeam.medicalService.entities.DoctorAppointment;
-import com.blueTeam.medicalService.entities.enums.Notification;
-import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentNotificationService;
-import com.blueTeam.medicalService.services.interfaces.DoctorAppointmentService;
-import com.blueTeam.medicalService.services.interfaces.EmailSender;
+import com.blueTeam.medicalService.entity.DoctorAppointment;
+import com.blueTeam.medicalService.entity.enums.Notification;
+import com.blueTeam.medicalService.service.DoctorAppointmentService;
+import com.blueTeam.medicalService.service.DoctorAppointmentNotificationService;
+import com.blueTeam.medicalService.service.EmailSender;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +23,11 @@ public class DoctorAppointmentNotificationServiceImpl implements DoctorAppointme
     private final DoctorAppointmentService appointmentService;
     private final EmailSender emailSenderImpl;
 
-    @Value("${properties.email.subject:'Прием у врача'}")
+    @Value("${app.email.subject:'Прием у врача'}")
     private String emailSubject;
 
     @Override
-    @Scheduled(cron = "${properties.scheduled.cron}")
+    @Scheduled(cron = "${app.scheduled.cron}")
     public void notifyPatients() {
         var todayAppointments = appointmentService.getPlannedAppointmentsForNotification();
         if (todayAppointments.isEmpty()) {

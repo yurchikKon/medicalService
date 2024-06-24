@@ -1,6 +1,6 @@
-package com.blueTeam.medicalService.services.implementations;
+package com.blueTeam.medicalService.service.implementation;
 
-import com.blueTeam.medicalService.services.interfaces.EmailSender;
+import com.blueTeam.medicalService.service.EmailSender;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,20 +18,20 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class EmailSenderImpl implements EmailSender {
-    private final JavaMailSender mailSender;
+    private final JavaMailSender javaMailSender;
     private final SpringTemplateEngine templateEngine;
 
-    @Value("${properties.email.template:mail-template}")
+    @Value("${app.email.template:mail-template}")
     private String mailTemplate;
 
     @Override
     public void sendMessage(String to, String subject, Map<String, Object> templateModel) throws MessagingException {
-            var message = mailSender.createMimeMessage();
-            var helper = new MimeMessageHelper(message, true, "UTF-8");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(createHtmlBody(templateModel), true);
-            mailSender.send(message);
+        var message = javaMailSender.createMimeMessage();
+        var helper = new MimeMessageHelper(message, true, "UTF-8");
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(createHtmlBody(templateModel), true);
+        javaMailSender.send(message);
     }
 
     private String createHtmlBody(Map<String, Object> modelTemplate) {
