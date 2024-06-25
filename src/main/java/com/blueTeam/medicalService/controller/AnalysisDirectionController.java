@@ -20,4 +20,9 @@ public class AnalysisDirectionController {
     public AnalysisDirectionDto changeAnalysisResult(@PathVariable Long id, @RequestParam String newResult) {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
     }
+
+    @PutMapping("/analysisList")
+    public void update(@RequestBody AnalysisDirectionDto analysisDirectionDto) {
+        analysisDirectionService.changeResultsAnalysisDirection(analysisDirectionDto.id(), analysisDirectionDto.result());
+    }
 }
