@@ -7,5 +7,5 @@ import com.blueTeam.medicalService.entities.enums.Usage;
 import java.util.List;
 
 public interface AnalysisDirectionService {
-    public void changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult);
+    void changeResultsAnalysisDirection(Long idAnalysisDirection, String newResult);
 }
