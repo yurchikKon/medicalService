@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.blueTeam.medicalService.entity.enums.DirectionStatus.*;
 import static com.blueTeam.medicalService.entity.enums.Usage.*;
 
@@ -55,4 +57,12 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
                 throw new InvalidStateException("Analysis has not been passed yet");
             }
         }
+
+    @Override
+    public List<AnalysisDirectionDto> findAllByPatientidAndUsage(Long patientId) {
+        return analysisDirectionRepository.findAllByPatientidAndUsage(patientId).stream()
+                .map(analysisDirectionMapper::mapToDto)
+                .toList();
+    }
+
 }

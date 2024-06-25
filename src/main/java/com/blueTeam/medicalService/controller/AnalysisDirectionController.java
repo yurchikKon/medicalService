@@ -3,7 +3,10 @@ package com.blueTeam.medicalService.controller;
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
 import com.blueTeam.medicalService.service.AnalysisDirectionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +22,14 @@ public class AnalysisDirectionController {
     @PutMapping("/{id}/result")
     public AnalysisDirectionDto changeAnalysisResult(@PathVariable Long id, @RequestParam String newResult) {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
+    }
+
+    @PutMapping("/analysisList")
+    public void update(@RequestBody AnalysisDirectionDto analysisDirectionDto) {
+        analysisDirectionService.changeResultsAnalysisDirection(analysisDirectionDto.id(), analysisDirectionDto.result());
+    }
+    @GetMapping("/patients/{id}")
+    public ResponseEntity<List<AnalysisDirectionDto>> getAnalysisDirection(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(analysisDirectionService.findAllByPatientidAndUsage(id));
     }
 }
