@@ -1,9 +1,8 @@
 package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.user.UserCreateEditDto;
-import com.blueTeam.medicalService.dto.user.UserRepresentationDto;
 import com.blueTeam.medicalService.dto.user.doctor.DoctorRepresentationDto;
-import com.blueTeam.medicalService.entities.Doctor;
+import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.mapper.util.PasswordEncoderUtil;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,7 +26,7 @@ public abstract class DoctorMapper {
 
     public abstract DoctorRepresentationDto mapToDto(Doctor doctor);
 
-    public abstract Doctor mapToEntity(UserRepresentationDto dto);
+    public abstract Doctor mapToEntity(DoctorRepresentationDto dto);
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     public abstract Doctor mapToEntity(UserCreateEditDto dto);

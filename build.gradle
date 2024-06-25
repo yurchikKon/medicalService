@@ -28,6 +28,10 @@ allprojects {
         mavenCentral()
     }
 
+    ext {
+        set('springCloudVersion', "2023.0.1")
+    }
+
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
         implementation 'org.springframework.boot:spring-boot-starter-validation'
@@ -37,6 +41,16 @@ allprojects {
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
         implementation 'org.flywaydb:flyway-core'
         implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.3.0'
+        implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
+        implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+        implementation 'com.fasterxml.jackson.core:jackson-databind'
+        runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+        runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+
 
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'org.postgresql:postgresql'
@@ -57,6 +71,13 @@ allprojects {
         testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
         testAnnotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
     }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
 
     tasks.named('test') {
         useJUnitPlatform()

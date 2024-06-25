@@ -1,7 +1,7 @@
 package com.blueTeam.medicalService.mapper;
 
 import com.blueTeam.medicalService.dto.payment.PayReceiptDto;
-import com.blueTeam.medicalService.entities.PayReceipt;
+import com.blueTeam.medicalService.entity.PayReceipt;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

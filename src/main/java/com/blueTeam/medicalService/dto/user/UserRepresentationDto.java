@@ -1,6 +1,6 @@
 package com.blueTeam.medicalService.dto.user;
 
-import com.blueTeam.medicalService.entities.enums.Role;
+import com.blueTeam.medicalService.entity.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
