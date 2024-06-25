@@ -20,12 +20,6 @@ spring:
     jwt:
       secret: 399BEE1BFDA3DBC36BDDF873D3D81FD3548C5D6354DAE109DF9490D2F92405B3
       expiration: PT12H
-app:
-  feign:
-    config:
-      name: openFDA
-      url: https://api.fda.gov
-
   mail:
     host: smtp.gmail.com
     port: 587
@@ -42,7 +36,11 @@ app:
     cache: false
     encoding: UTF-8
     mode: HTML
-properties:
+app:
+  feign:
+    config:
+      name: openFDA
+      url: https://api.fda.gov
   scheduled:
     cron: '0 0 8 * * ?'
   email:

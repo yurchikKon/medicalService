@@ -5,6 +5,8 @@ import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.entity.DoctorAppointment;
 import com.blueTeam.medicalService.entity.DoctorTimetable;
 import com.blueTeam.medicalService.entity.Patient;
+import com.blueTeam.medicalService.entity.enums.Notification;
+import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.mapper.DoctorAppointmentMapper;
@@ -118,6 +120,19 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         else {
             throw new InvalidStateException("Appointment with such id is not scheduled");
         }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<DoctorAppointment> getPlannedAppointmentsForNotification() {
+        var todayAppointments = doctorAppointmentRepository.findPlannedAppointments(Status.SCHEDULED, Notification.PLANED);
+        return todayAppointments != null ? todayAppointments : Collections.emptyList();
+    }
+
+    @Override
+    @Transactional(isolation = SERIALIZABLE)
+    public List<DoctorAppointment> saveAllAppointments(List<DoctorAppointment> doctorAppointments) {
+            return doctorAppointmentRepository.saveAll(doctorAppointments);
     }
 
     private void checkAppointmentDateTime(LocalDateTime dateTime) {
