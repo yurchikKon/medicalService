@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.blueTeam.medicalService.entity.enums.Notification.PLANED;
 import static com.blueTeam.medicalService.entity.enums.Status.CANCELED;
@@ -56,7 +57,18 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
             throw new EntityNotFoundException("Doctor with such id does not exist");
         }
     }
-
+    @Transactional(readOnly = true)
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentsByDate(LocalDate localdate) {
+        if (localdate.isAfter(LocalDate.now().plusWeeks(3))) {
+            log.error("Дата слишком далеко в будущем: {}", localdate);
+            throw new IllegalArgumentException("Дата слишком далеко в будущем");
+        } else {
+                return doctorAppointmentRepository.findAllByDate(localdate)
+                                .stream()
+                                .map(doctorAppointmentMapper::mapToDto)
+                                .toList();
+        }
+    }
     @Transactional(readOnly = true)
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {

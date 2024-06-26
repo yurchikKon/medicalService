@@ -20,4 +20,7 @@ public interface DoctorAppointmentService {
     List<DoctorAppointment> getPlannedAppointmentsForNotification();
 
     List<DoctorAppointment> saveAllAppointments(List<DoctorAppointment> doctorAppointments);
+
+    List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentsByDate(LocalDate localdate);
+
 }
