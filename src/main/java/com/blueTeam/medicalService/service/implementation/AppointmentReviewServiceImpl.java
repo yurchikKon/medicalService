@@ -41,6 +41,7 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
                 .build();
 
             appointmentReviewRepository.save(appointmentReview);
+            log.info("Appointment review for appointment with id {} was created", appointmentId);
             return appointmentReviewMapper.mapToDto(appointmentReview);
         }
         else {
@@ -62,8 +63,8 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
                 .average()
                 .orElseThrow(() -> new EntityNotFoundException("Appointment does not have marks"));
             doctor.setRate(mark);
-
             doctorRepository.save(doctor);
+            log.info("Doctor with id {} received average mark {}", doctor.getId(), mark);
         }
     }
 }
