@@ -24,7 +24,7 @@ public class AnalysisDirectionController {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
     }
 
-    @GetMapping("/patients/{id}")
+    @GetMapping("/patients/{id}/unused")
     public List<AnalysisDirectionNamedDto> getUsedAnalysisForPatient(@PathVariable Long id) {
         return analysisDirectionService.getUsedAnalysisRecords(id);
     }
