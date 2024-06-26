@@ -9,6 +9,7 @@ import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
 import com.blueTeam.medicalService.mapper.AnalysisDirectionNamedMapper;
 import com.blueTeam.medicalService.repository.AnalysisDirectionRepository;
 import com.blueTeam.medicalService.service.AnalysisDirectionService;
+import com.blueTeam.medicalService.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
     private final AnalysisDirectionRepository analysisDirectionRepository;
     private final AnalysisDirectionMapper analysisDirectionMapper;
     private final AnalysisDirectionNamedMapper analysisDirectionNamedMapper;
+    private final PatientService patientService;
 
     @Override
     @Transactional
@@ -66,6 +68,9 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
     @Override
     @Transactional(readOnly = true)
     public List<AnalysisDirectionNamedDto> getUsedAnalysisRecords(Long id) {
+        if (!patientService.isPatientPresent(id)) {
+            throw new EntityNotFoundException("Invalid patient id: " + id);
+        }
         var testAppointments = analysisDirectionRepository.findUnusedAnalysisByPatientId(id, USED);
         return testAppointments == null
                 ? Collections.emptyList()

@@ -8,4 +8,5 @@ import java.util.List;
 public interface PatientService {
     List<AnalysisDirectionDto> findActivePatientAnalysisDirections(Long patientId);
 
+    boolean isPatientPresent(Long id);
 }
