@@ -4,6 +4,7 @@ import com.blueTeam.medicalService.entity.enums.DirectionStatus;
 import com.blueTeam.medicalService.entity.enums.Usage;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "analysis_direction")
 public class AnalysisDirection {
 
