@@ -2,7 +2,7 @@ package com.blueTeam.medicalService.controller;
 
 import com.blueTeam.medicalService.dto.user.doctor.timetable.DoctorTimetableDto;
 import com.blueTeam.medicalService.entity.DoctorTimetable;
-import com.blueTeam.medicalService.service.interfaces.DoctorTimetableService;
+import com.blueTeam.medicalService.service.DoctorTimetableService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,7 +21,7 @@ import java.util.List;
 public class DoctorTimetableController {
     private final DoctorTimetableService doctorTimetableService;
 
-    @GetMapping("/date/{date})")
+    @GetMapping("/date/{date}")
     public ResponseEntity<List<DoctorTimetableDto>> getDoctorTimetablesByDayOfWeek(
             @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         DayOfWeek dayOfWeek = date.getDayOfWeek();

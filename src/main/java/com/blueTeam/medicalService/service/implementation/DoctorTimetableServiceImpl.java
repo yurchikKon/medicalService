@@ -5,7 +5,7 @@ import com.blueTeam.medicalService.entity.DoctorTimetable;
 import com.blueTeam.medicalService.mapper.DoctorTimetableMapping;
 import com.blueTeam.medicalService.mapper.DoctorTimetableMappingImpl;
 import com.blueTeam.medicalService.repository.DoctorTimetableRepository;
-import com.blueTeam.medicalService.service.interfaces.DoctorTimetableService;
+import com.blueTeam.medicalService.service.DoctorTimetableService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

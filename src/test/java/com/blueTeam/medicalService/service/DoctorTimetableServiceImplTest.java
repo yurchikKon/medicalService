@@ -6,6 +6,8 @@ import com.blueTeam.medicalService.repository.DoctorTimetableRepository;
 import com.blueTeam.medicalService.service.implementation.DoctorTimetableServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,19 +28,10 @@ class DoctorTimetableServiceImplTest {
     private DoctorTimetableServiceImpl doctorTimetableService;
 
 
-    @Test
-    void testFindDoctorTimetablesByDayOfWeekInvalidDaySATURDAY() {
-        DayOfWeek dayOfWeek = DayOfWeek.SATURDAY;
-
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            doctorTimetableService.findDoctorTimetablesByDayOfWeek(dayOfWeek);
-        });
-
-        assertEquals("Выбран недопустимый день недели: " + dayOfWeek.toString(), exception.getMessage());
-    }
-    @Test
-    void testFindDoctorTimetablesByDayOfWeekInvalidDaySUNDAY() {
-        DayOfWeek dayOfWeek = DayOfWeek.SUNDAY;
+    @ParameterizedTest
+    @ValueSource(strings = {"SATURDAY", "SUNDAY"})
+    void testFindDoctorTimetablesByDayOfWeekInvalidDay(String dayOfWeekString) {
+        DayOfWeek dayOfWeek = DayOfWeek.valueOf(dayOfWeekString);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             doctorTimetableService.findDoctorTimetablesByDayOfWeek(dayOfWeek);
