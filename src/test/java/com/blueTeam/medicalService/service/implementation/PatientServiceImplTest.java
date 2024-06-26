@@ -53,6 +53,9 @@ class PatientServiceImplTest {
     @Mock
     DoctorAppointmentMapper doctorAppointmentMapper;
 
+    @Mock
+    PatientRepository patientRepository;
+
     @Test
     void findActivePatientAnalysisDirections() {
         when(doctorAppointmentRepository.findAllByPatientIdAndStatus(PATIENT_ID, COMPLETED))
@@ -75,35 +78,6 @@ class PatientServiceImplTest {
         return DoctorAppointment.builder().id(id).status(status).analysisDirections(analysisDirectionList).build();
     }
 
-    private static List<AnalysisDirection> fillAnalysisDirectionList() {
-        List<AnalysisDirection> analysisDirectionList = new ArrayList<>();
-        analysisDirectionList.add(ANALYSIS_DIRECTION_ONE);
-        analysisDirectionList.add(ANALYSIS_DIRECTION_TWO);
-        return analysisDirectionList;
-    }
-
-    private static AnalysisDirection createAnalysisDirection(Long id, DirectionStatus status) {
-        return AnalysisDirection.builder().id(id).status(status).build();
-    }
-
-    private static AnalysisDirectionDto createAnalysisDirectionDto(Long id, DirectionStatus directionStatus) {
-        return AnalysisDirectionDto.builder().id(id).status(directionStatus).build();
-    }
-
-    private static DoctorAppointmentRepresentationDto createDoctorAppointmentDto(Long id, Status status) {
-        return DoctorAppointmentRepresentationDto.builder().id(id).status(status).build();
-    }
-
-    @Mock
-    private DoctorAppointmentRepository doctorAppointmentRepository;
-    @Mock
-    private PatientRepository patientRepository;
-    @Mock
-    private AnalysisDirectionMapper mapper;
-
-    @InjectMocks
-    private PatientServiceImpl patientService;
-
     @Test
     void isPatientPresent_ShouldReturnTrue() {
         Long patientId = 1L;
@@ -125,4 +99,24 @@ class PatientServiceImplTest {
         assertFalse(isPatientPresent);
         verify(patientRepository, times(1)).findById(patientId);
     }
+
+    private static List<AnalysisDirection> fillAnalysisDirectionList() {
+        List<AnalysisDirection> analysisDirectionList = new ArrayList<>();
+        analysisDirectionList.add(ANALYSIS_DIRECTION_ONE);
+        analysisDirectionList.add(ANALYSIS_DIRECTION_TWO);
+        return analysisDirectionList;
+    }
+
+    private static AnalysisDirection createAnalysisDirection(Long id, DirectionStatus status) {
+        return AnalysisDirection.builder().id(id).status(status).build();
+    }
+
+    private static AnalysisDirectionDto createAnalysisDirectionDto(Long id, DirectionStatus directionStatus) {
+        return AnalysisDirectionDto.builder().id(id).status(directionStatus).build();
+    }
+
+    private static DoctorAppointmentRepresentationDto createDoctorAppointmentDto(Long id, Status status) {
+        return DoctorAppointmentRepresentationDto.builder().id(id).status(status).build();
+    }
+
 }

@@ -50,6 +50,12 @@ class AnalysisDirectionServiceImplTest {
     @Mock
     AnalysisDirectionRepository analysisDirectionRepository;
 
+    @Mock
+    AnalysisDirectionNamedMapper analysisDirectionNamedMapper;
+
+    @Mock
+    PatientService patientService;
+
     @Test
     void passAnalysis_userFound() {
         when(analysisDirectionRepository.findById(ANALYSIS_DIRECTION_ID)).thenReturn(of(ANALYSIS_DIRECTION_UNUSED));
@@ -78,22 +84,10 @@ class AnalysisDirectionServiceImplTest {
                 .build();
     }
 
-    @Mock
-    private AnalysisDirectionRepository analysisDirectionRepository;
-    @Mock
-    private AnalysisDirectionMapper analysisDirectionMapper;
-    @Mock
-    private AnalysisDirectionNamedMapper analysisDirectionNamedMapper;
-    @Mock
-    private PatientService patientService;
-
-    @InjectMocks
-    private AnalysisDirectionServiceImpl analysisDirectionService;
-
     @Test
     void testGetUsedAnalysisRecords_ValidPatient() {
         Long patientId = 1L;
-        List<AnalysisDirection> testDirections = createTestAppointments();
+        List<AnalysisDirection> testDirections = List.of(ANALYSIS_DIRECTION_UNUSED, ANALYSIS_DIRECTION_USED);
         List<AnalysisDirectionNamedDto> expectedDtos = testDirections.stream()
                 .map(t -> createNamedDto(t.getId()))
                 .toList();
@@ -126,41 +120,10 @@ class AnalysisDirectionServiceImplTest {
     }
 
     @Test
-    void testPassAnalysis_ValidAnalysisDirection() {
-        Long analysisDirectionId = 1L;
-        AnalysisDirection analysisDirection = createValidAnalysisDirection(analysisDirectionId);
-        AnalysisDirectionDto expectedDto = createDto(analysisDirectionId);
-
-        when(analysisDirectionRepository.findById(analysisDirectionId)).thenReturn(Optional.of(analysisDirection));
-        when(analysisDirectionMapper.mapToDto(analysisDirection)).thenReturn(expectedDto);
-
-        AnalysisDirectionDto actualDto = analysisDirectionService.passAnalysis(analysisDirectionId);
-
-        assertThat(actualDto).isEqualTo(expectedDto);
-        verify(analysisDirectionRepository, times(1)).findById(analysisDirectionId);
-        verify(analysisDirectionRepository, times(1)).save(analysisDirection);
-        verify(analysisDirectionMapper, times(1)).mapToDto(analysisDirection);
-    }
-
-    @Test
-    void testPassAnalysis_InvalidAnalysisDirection() {
-        Long analysisDirectionId = 1L;
-        AnalysisDirection analysisDirection = createInvalidAnalysisDirection(analysisDirectionId);
-
-        when(analysisDirectionRepository.findById(analysisDirectionId)).thenReturn(Optional.of(analysisDirection));
-
-        assertThatThrownBy(() -> analysisDirectionService.passAnalysis(analysisDirectionId))
-                .isInstanceOf(ResourceAlreadyExistException.class)
-                .hasMessage("Analysis has already been passed");
-        verify(analysisDirectionRepository, times(1)).findById(analysisDirectionId);
-        verifyNoMoreInteractions(analysisDirectionRepository, analysisDirectionMapper);
-    }
-
-    @Test
     void testChangeResultsAnalysisDirection_AnalysisDirectionPassed() {
         Long analysisDirectionId = 1L;
         String newResult = "New Result";
-        AnalysisDirection analysisDirection = createUsedAnalysisDirection(analysisDirectionId);
+        AnalysisDirection analysisDirection = ANALYSIS_DIRECTION_USED;
         analysisDirection.setResult(newResult);
         AnalysisDirectionDto expectedDto = createDto(analysisDirectionId);
 
@@ -179,7 +142,7 @@ class AnalysisDirectionServiceImplTest {
     void testChangeResultsAnalysisDirection_AnalysisDirectionNotPassed() {
         Long analysisDirectionId = 1L;
         String newResult = "New Result";
-        AnalysisDirection analysisDirection = createValidAnalysisDirection(analysisDirectionId);
+        AnalysisDirection analysisDirection = ANALYSIS_DIRECTION_UNUSED;
 
         when(analysisDirectionRepository.findById(analysisDirectionId)).thenReturn(Optional.of(analysisDirection));
 
@@ -190,46 +153,8 @@ class AnalysisDirectionServiceImplTest {
         verifyNoMoreInteractions(analysisDirectionRepository, analysisDirectionMapper);
     }
 
-    private List<AnalysisDirection> createTestAppointments() {
-        AnalysisDirection testAppointment1 = new AnalysisDirection();
-        testAppointment1.setId(1L);
-        testAppointment1.setStatus(DirectionStatus.INVALID);
-        testAppointment1.setUsage(Usage.USED);
-
-        AnalysisDirection testAppointment2 = new AnalysisDirection();
-        testAppointment2.setId(2L);
-        testAppointment2.setStatus(DirectionStatus.VALID);
-        testAppointment2.setUsage(Usage.USED);
-
-        return List.of(testAppointment1, testAppointment2);
-    }
-
-    private AnalysisDirection createValidAnalysisDirection(Long id) {
-        AnalysisDirection analysisDirection = new AnalysisDirection();
-        analysisDirection.setId(id);
-        analysisDirection.setStatus(DirectionStatus.VALID);
-        analysisDirection.setUsage(Usage.UNUSED);
-        return analysisDirection;
-    }
-
-    private AnalysisDirection createInvalidAnalysisDirection(Long id) {
-        AnalysisDirection analysisDirection = new AnalysisDirection();
-        analysisDirection.setId(id);
-        analysisDirection.setStatus(DirectionStatus.INVALID);
-        analysisDirection.setUsage(Usage.USED);
-        return analysisDirection;
-    }
-
-    private AnalysisDirection createUsedAnalysisDirection(Long id) {
-        AnalysisDirection analysisDirection = new AnalysisDirection();
-        analysisDirection.setId(id);
-        analysisDirection.setStatus(DirectionStatus.VALID);
-        analysisDirection.setUsage(Usage.USED);
-        return analysisDirection;
-    }
-
     private AnalysisDirectionNamedDto createNamedDto(Long id) {
-        return new AnalysisDirectionNamedDto(id, DirectionStatus.VALID, Usage.UNUSED, null,"Analisys");
+        return new AnalysisDirectionNamedDto(id, DirectionStatus.VALID, Usage.UNUSED, null,null);
     }
 
     private AnalysisDirectionDto createDto(Long id) {
