@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -51,7 +50,7 @@ public class PatientServiceImpl implements PatientService {
 
         return appointments.stream()
                 .map(doctorAppointmentMapper::mapToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 }

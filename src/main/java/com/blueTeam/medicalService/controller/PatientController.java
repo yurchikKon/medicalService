@@ -30,7 +30,7 @@ public class PatientController {
         return patientService.findActivePatientAnalysisDirections(patientId);
     }
 
-    @GetMapping("/{id}/appointments/scheduled")
+    @GetMapping("/{patientId}/appointments/scheduled")
     public List<DoctorAppointmentRepresentationDto> findActivePatientAppointments(@PathVariable Long patientId) {
         return patientService.findActivePatientAppointments(patientId);
     }
