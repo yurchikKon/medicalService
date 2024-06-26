@@ -13,7 +13,7 @@ import static org.mapstruct.MappingConstants.ComponentModel.SPRING;
 @Mapper(componentModel = SPRING)
 public interface AnalysisDirectionNamedMapper {
 
-    @Mapping(source = "direction.id", target = "id")
+    @Mapping(expression = "java(direction.getId())", target = "id")
     @Mapping(source = "analysis.name", target = "name")
     AnalysisDirectionNamedDto mapToNamedDto(AnalysisDirection direction, Analysis analysis);
 

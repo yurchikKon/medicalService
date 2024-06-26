@@ -1,12 +1,16 @@
 package com.blueTeam.medicalService.service.implementation;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionNamedDto;
 import com.blueTeam.medicalService.entity.AnalysisDirection;
 import com.blueTeam.medicalService.entity.enums.DirectionStatus;
 import com.blueTeam.medicalService.entity.enums.Usage;
+import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
+import com.blueTeam.medicalService.mapper.AnalysisDirectionNamedMapper;
 import com.blueTeam.medicalService.repository.AnalysisDirectionRepository;
+import com.blueTeam.medicalService.service.PatientService;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.blueTeam.medicalService.entity.enums.DirectionStatus.INVALID;
@@ -22,9 +27,12 @@ import static com.blueTeam.medicalService.entity.enums.DirectionStatus.VALID;
 import static com.blueTeam.medicalService.entity.enums.Usage.UNUSED;
 import static com.blueTeam.medicalService.entity.enums.Usage.USED;
 import static java.util.Optional.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 @ExtendWith(MockitoExtension.class)
 class AnalysisDirectionServiceImplTest {
@@ -41,6 +49,12 @@ class AnalysisDirectionServiceImplTest {
 
     @Mock
     AnalysisDirectionRepository analysisDirectionRepository;
+
+    @Mock
+    AnalysisDirectionNamedMapper analysisDirectionNamedMapper;
+
+    @Mock
+    PatientService patientService;
 
     @Test
     void passAnalysis_userFound() {
@@ -68,5 +82,82 @@ class AnalysisDirectionServiceImplTest {
                 .usage(usage)
                 .status(status)
                 .build();
+    }
+
+    @Test
+    void testGetUsedAnalysisRecords_ValidPatient() {
+        Long patientId = 1L;
+        List<AnalysisDirection> testDirections = List.of(ANALYSIS_DIRECTION_UNUSED, ANALYSIS_DIRECTION_USED);
+        List<AnalysisDirectionNamedDto> expectedDtos = testDirections.stream()
+                .map(t -> createNamedDto(t.getId()))
+                .toList();
+
+        when(patientService.isPatientPresent(patientId)).thenReturn(true);
+        when(analysisDirectionRepository.findUnusedAnalysisByPatientId(patientId, Usage.USED))
+                .thenReturn(testDirections);
+        testDirections.forEach(t -> when(analysisDirectionNamedMapper.mapToNamedDto(t, t.getAnalysis()))
+                .thenReturn(createNamedDto(t.getId())));
+
+        List<AnalysisDirectionNamedDto> actualDtos = analysisDirectionService.getUsedAnalysisRecords(patientId);
+
+        assertThat(actualDtos).isEqualTo(expectedDtos);
+        verify(patientService, times(1)).isPatientPresent(patientId);
+        verify(analysisDirectionRepository, times(1)).findUnusedAnalysisByPatientId(patientId, Usage.USED);
+        testDirections.forEach(t -> verify(analysisDirectionNamedMapper, times(1)).mapToNamedDto(t, t.getAnalysis()));
+    }
+
+    @Test
+    void testGetUsedAnalysisRecords_InvalidPatient() {
+        Long patientId = 1L;
+        when(patientService.isPatientPresent(patientId)).thenReturn(false);
+
+        assertThatThrownBy(() -> analysisDirectionService.getUsedAnalysisRecords(patientId))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Invalid patient id: " + patientId);
+        verify(patientService, times(1)).isPatientPresent(patientId);
+        verifyNoInteractions(analysisDirectionRepository);
+        verifyNoInteractions(analysisDirectionNamedMapper);
+    }
+
+    @Test
+    void testChangeResultsAnalysisDirection_AnalysisDirectionPassed() {
+        Long analysisDirectionId = 1L;
+        String newResult = "New Result";
+        AnalysisDirection analysisDirection = ANALYSIS_DIRECTION_USED;
+        analysisDirection.setResult(newResult);
+        AnalysisDirectionDto expectedDto = createDto(analysisDirectionId);
+
+        when(analysisDirectionRepository.findById(analysisDirectionId)).thenReturn(Optional.of(analysisDirection));
+        when(analysisDirectionMapper.mapToDto(analysisDirection)).thenReturn(expectedDto);
+
+        AnalysisDirectionDto actualDto = analysisDirectionService.changeResultsAnalysisDirection(analysisDirectionId, newResult);
+
+        assertThat(actualDto).isEqualTo(expectedDto);
+        verify(analysisDirectionRepository, times(1)).findById(analysisDirectionId);
+        verify(analysisDirectionRepository, times(1)).save(analysisDirection);
+        verify(analysisDirectionMapper, times(1)).mapToDto(analysisDirection);
+    }
+
+    @Test
+    void testChangeResultsAnalysisDirection_AnalysisDirectionNotPassed() {
+        Long analysisDirectionId = 1L;
+        String newResult = "New Result";
+        AnalysisDirection analysisDirection = ANALYSIS_DIRECTION_UNUSED;
+
+        when(analysisDirectionRepository.findById(analysisDirectionId)).thenReturn(Optional.of(analysisDirection));
+
+        assertThatThrownBy(() -> analysisDirectionService.changeResultsAnalysisDirection(analysisDirectionId, newResult))
+                .isInstanceOf(InvalidStateException.class)
+                .hasMessage("Analysis has not been passed yet");
+        verify(analysisDirectionRepository, times(1)).findById(analysisDirectionId);
+        verifyNoMoreInteractions(analysisDirectionRepository, analysisDirectionMapper);
+    }
+
+    private AnalysisDirectionNamedDto createNamedDto(Long id) {
+        return new AnalysisDirectionNamedDto(id, DirectionStatus.VALID, Usage.UNUSED, null,null);
+    }
+
+    private AnalysisDirectionDto createDto(Long id) {
+        return new AnalysisDirectionDto(id, DirectionStatus.VALID, Usage.UNUSED, null);
     }
 }
