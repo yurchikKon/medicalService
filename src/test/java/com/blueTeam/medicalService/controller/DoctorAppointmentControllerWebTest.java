@@ -18,7 +18,7 @@ import static org.mockito.Mockito.mock;
 
 
 @WebMvcTest(DoctorAppointmentController.class)
-public class DoctorAppointmentControllerTest {
+public class DoctorAppointmentControllerWebTest {
 
     private final String doctorAppointmentDateUrl = "/api/v1/doctorAppointments/date/{date}";
 
