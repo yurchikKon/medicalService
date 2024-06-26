@@ -25,3 +25,8 @@ app:
     config:
       name: openFDA
       url: https://api.fda.gov
+
+client:
+  payment:
+    service:
+      url: http://localhost:8081

@@ -1,6 +1,4 @@
-package com.paymentApplication.dto;
-
-import com.paymentApplication.model.entity.Currency;
+package com.blueTeam.medicalService.dto.payment.client;
 
 import java.math.BigDecimal;
 

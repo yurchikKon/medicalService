@@ -1,4 +1,4 @@
- plugins {
+plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.6'
     id 'io.spring.dependency-management' version '1.1.5'
@@ -46,9 +46,6 @@ allprojects {
         implementation 'com.fasterxml.jackson.core:jackson-databind'
         runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
         runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
-
-
-
 
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'org.postgresql:postgresql'

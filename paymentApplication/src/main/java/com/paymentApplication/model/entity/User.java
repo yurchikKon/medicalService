@@ -34,6 +34,9 @@ public class User {
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
+    @Column(name = "client_id")
+    Long clientId;
+
     @OneToOne(mappedBy = "user")
     Account account;
 }
