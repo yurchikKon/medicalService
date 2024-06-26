@@ -22,11 +22,16 @@ public class DoctorAppointmentController {
         return doctorAppointmentService.findAllFreeAppointmentsByDoctorIdAndDate(doctorId, date);
     }
 
+    @GetMapping("/date/{date}")
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return doctorAppointmentService.getAllDoctorsAppointmentsByDate(date);
+    }
     @PostMapping("/{patientId}/{doctorId}")
     public DoctorAppointmentRepresentationDto createAppointment(@PathVariable Long patientId, @PathVariable Long doctorId,
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime) {
         return doctorAppointmentService.createAppointment(patientId, doctorId, dateTime);
     }
+
 
     @PutMapping("/{appointmentId}")
     public DoctorAppointmentRepresentationDto cancelAppointment(@PathVariable Long appointmentId) {

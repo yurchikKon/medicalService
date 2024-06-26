@@ -1,10 +1,12 @@
 package com.blueTeam.medicalService.service.implementation;
 
 import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionDto;
+import com.blueTeam.medicalService.dto.analysis.AnalysisDirectionNamedDto;
 import com.blueTeam.medicalService.entity.AnalysisDirection;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
 import com.blueTeam.medicalService.mapper.AnalysisDirectionMapper;
+import com.blueTeam.medicalService.mapper.AnalysisDirectionNamedMapper;
 import com.blueTeam.medicalService.repository.AnalysisDirectionRepository;
 import com.blueTeam.medicalService.service.AnalysisDirectionService;
 import jakarta.persistence.EntityNotFoundException;
@@ -13,8 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.blueTeam.medicalService.entity.enums.DirectionStatus.*;
-import static com.blueTeam.medicalService.entity.enums.Usage.*;
+import java.util.Collections;
+import java.util.List;
+
+import static com.blueTeam.medicalService.entity.enums.DirectionStatus.INVALID;
+import static com.blueTeam.medicalService.entity.enums.DirectionStatus.VALID;
+import static com.blueTeam.medicalService.entity.enums.Usage.USED;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +28,7 @@ import static com.blueTeam.medicalService.entity.enums.Usage.*;
 public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
     private final AnalysisDirectionRepository analysisDirectionRepository;
     private final AnalysisDirectionMapper analysisDirectionMapper;
+    private final AnalysisDirectionNamedMapper analysisDirectionNamedMapper;
 
     @Override
     @Transactional
@@ -55,4 +62,13 @@ public class AnalysisDirectionServiceImpl implements AnalysisDirectionService {
                 throw new InvalidStateException("Analysis has not been passed yet");
             }
         }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AnalysisDirectionNamedDto> getUsedAnalysisRecords(Long id) {
+        var testAppointments = analysisDirectionRepository.findUnusedAnalysisByPatientId(id, USED);
+        return testAppointments == null
+                ? Collections.emptyList()
+                : testAppointments.stream().map(t -> analysisDirectionNamedMapper.mapToNamedDto(t, t.getAnalysis())).toList();
+    }
 }

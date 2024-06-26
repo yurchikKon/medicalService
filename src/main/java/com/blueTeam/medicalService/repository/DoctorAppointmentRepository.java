@@ -28,5 +28,8 @@ public interface DoctorAppointmentRepository extends JpaRepository<DoctorAppoint
     @Query("SELECT d FROM DoctorAppointment d WHERE CAST(d.dateTime AS date) = CURRENT_DATE" + " AND d.status = :status AND d.notification = :notification")
     List<DoctorAppointment> findPlannedAppointments(@Param("status") Status status, @Param("notification") Notification notification);
 
+    @Query("SELECT d FROM DoctorAppointment d WHERE cast(d.dateTime as date)= :date")
+    List<DoctorAppointment> findAllByDate(@Param("date") LocalDate localDate);
+
 }
 

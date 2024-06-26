@@ -26,6 +26,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.blueTeam.medicalService.entity.enums.Notification.PLANED;
 import static com.blueTeam.medicalService.entity.enums.Status.CANCELED;
@@ -56,13 +57,24 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
             throw new EntityNotFoundException("Doctor with such id does not exist");
         }
     }
-
+    @Transactional(readOnly = true)
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorsAppointmentsByDate(LocalDate localdate) {
+        if (localdate.isAfter(LocalDate.now().plusWeeks(3))) {
+            log.error("Дата слишком далеко в будущем: {}", localdate);
+            throw new IllegalArgumentException("Дата слишком далеко в будущем");
+        } else {
+                return doctorAppointmentRepository.findAllByDate(localdate)
+                                .stream()
+                                .map(doctorAppointmentMapper::mapToDto)
+                                .toList();
+        }
+    }
     @Transactional(readOnly = true)
     @Override
     public List<DoctorAppointmentRepresentationDto> findAllFreeAppointmentsByDoctorIdAndDate(Long id, LocalDate localDate) {
         Doctor doctor = doctorRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException("Doctor with such id does not exist"));
-        Set<LocalDateTime> dateTimeSet = fillDateTimeSet(findAllScheduledByDoctorIdAndDate(id, localDate));
+        Set<LocalDateTime> dateTimeSet = fillDateTimeSet(doctorAppointmentRepository.findAllScheduledByDoctorIdAndDate(id, localDate));
 
         List<DoctorAppointmentRepresentationDto> freeAppointments = generateAppointments(doctor, localDate)
             .stream()
@@ -187,11 +199,11 @@ public class DoctorAppointmentServiceImpl implements DoctorAppointmentService {
         }
     }
 
-    private Set<LocalDateTime> fillDateTimeSet(List<DoctorAppointmentRepresentationDto> dtoList) {
+    private Set<LocalDateTime> fillDateTimeSet(List<DoctorAppointment> dtoList) {
         Set<LocalDateTime> dateTimeSet = new HashSet<>();
 
-        for (DoctorAppointmentRepresentationDto dto : dtoList) {
-            dateTimeSet.add(dto.getDateTime());
+        for (DoctorAppointment appointment : dtoList) {
+            dateTimeSet.add(appointment.getDateTime());
         }
         return dateTimeSet;
     }
