@@ -4,15 +4,19 @@ import com.blueTeam.medicalService.dto.payment.client.TransferDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.client.RestClient;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+
 @RequiredArgsConstructor
-public class PaymentServiceClientRest {
+public class PaymentServiceClient {
 
     private final RestClient restClient;
 
-    public String pay(TransferDto transferDto) {
-        return restClient.get()
+    public TransferDto pay(TransferDto transferDto) {
+        return restClient.post()
                 .uri("/api/v1/payment")
+                .contentType(APPLICATION_JSON)
+                .body(transferDto)
                 .retrieve()
-                .body(String.class);
+                .body(TransferDto.class);
     }
 }

@@ -11,7 +11,13 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    Optional<Account> findAccountByUserClientId(Long userClientId);
+    @Query("""
+            select a
+            from Account a
+            join fetch a.user u
+            where u.clientId = :userClientId
+            """)
+    Optional<Account> findAccount(Long userClientId);
 
     @Query("""
             update Account a

@@ -1,11 +1,10 @@
 package com.paymentApplication.dto;
 
-import java.time.LocalDateTime;
+import com.paymentApplication.model.entity.PaymentType;
 
 public record PaymentMethodDto(
         Long id,
-        String paymentType,
-        String details,
-        LocalDateTime createdAt
+        PaymentType paymentType,
+        String details
 ) {
 }

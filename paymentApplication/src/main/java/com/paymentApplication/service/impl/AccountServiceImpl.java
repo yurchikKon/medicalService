@@ -22,7 +22,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto findByClientId(Long id) {
-        return accountRepository.findAccountByUserClientId(id)
+        return accountRepository.findAccount(id)
                 .map(accountMapper::mapToDto)
                 .orElseThrow(() -> new EntityNotFoundException("Account not found with client id: " + id));
     }
