@@ -22,7 +22,7 @@ public class DoctorController {
     private final DoctorAppointmentService doctorAppointmentService;
     private final DoctorService doctorService;
 
-    @GetMapping("/{doctorId}/appointments/date/{date}")
+    @GetMapping("/{doctorId}/appointments/scheduled/date/{date}")
     public List<DoctorAppointmentRepresentationDto> findAllScheduledByDoctorIdAndDate(
             @PathVariable Long doctorId,
             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {

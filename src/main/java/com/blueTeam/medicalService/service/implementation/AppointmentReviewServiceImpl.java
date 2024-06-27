@@ -51,7 +51,7 @@ public class AppointmentReviewServiceImpl implements AppointmentReviewService {
 
     @Override
     @Transactional
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "${app.scheduled.cron}")
     public void doctorsRateProcess() {
         List<Doctor> doctorList = doctorRepository.findAll();
 
