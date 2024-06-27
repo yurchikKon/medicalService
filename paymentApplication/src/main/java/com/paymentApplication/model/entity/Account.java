@@ -30,11 +30,11 @@ public class Account {
     LocalDateTime createdAt;
 
     @OneToOne(cascade = ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id")
     User user;
 
-    @OneToOne(cascade = ALL)
-    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    @ManyToOne(cascade = ALL)
+    @JoinColumn(name = "currency_id")
     Currency currency;
 
     @OneToOne(mappedBy = "sender")

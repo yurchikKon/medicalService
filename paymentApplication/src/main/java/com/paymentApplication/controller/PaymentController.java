@@ -3,6 +3,7 @@ package com.paymentApplication.controller;
 import com.paymentApplication.dto.TransferDto;
 import com.paymentApplication.service.PaymentTransactionService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,11 @@ public class PaymentController {
     private final PaymentTransactionService paymentTransactionService;
 
     @PostMapping
-    public void pay(@RequestBody TransferDto transferDto) {
+    public ResponseEntity<?> pay(@RequestBody TransferDto transferDto) {
         paymentTransactionService.transfer(transferDto);
+
+        return ResponseEntity
+                .noContent()
+                .build();
     }
 }

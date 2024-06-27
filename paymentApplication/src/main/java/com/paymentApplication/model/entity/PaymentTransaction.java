@@ -34,23 +34,23 @@ public class PaymentTransaction {
     LocalDateTime createdAt;
 
     @OneToOne
-    @JoinColumn(name = "account_receiver", referencedColumnName = "id")
+    @JoinColumn(name = "account_receiver")
     Account receiver;
 
     @OneToOne
-    @JoinColumn(name = "account_sender", referencedColumnName = "id")
+    @JoinColumn(name = "account_sender")
     Account sender;
 
     @OneToOne
-    @JoinColumn(name = "payment_method_id", referencedColumnName = "id")
+    @JoinColumn(name = "payment_method_id")
     PaymentMethod paymentMethod;
 
-    @OneToOne
-    @JoinColumn(name = "currency_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "currency_id")
     Currency currency;
 
-    @OneToOne
-    @JoinColumn(name = "status_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name = "status_id")
     Status status;
 
     @OneToMany

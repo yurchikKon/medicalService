@@ -33,6 +33,6 @@ public class PaymentMethod {
     @JoinColumn(name = "type_id", referencedColumnName = "id")
     PaymentType paymentType;
 
-    @OneToOne
+    @OneToOne(mappedBy = "paymentMethod")
     PaymentTransaction transaction;
 }

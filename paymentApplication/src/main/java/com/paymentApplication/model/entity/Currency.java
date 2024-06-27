@@ -3,11 +3,13 @@ package com.paymentApplication.model.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
@@ -25,6 +27,6 @@ public class Currency {
 
     String name;
 
-    @OneToOne(mappedBy = "currency")
-    Account account;
+    @OneToMany(mappedBy = "currency")
+    List<Account> accounts;
 }
