@@ -8,7 +8,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -16,23 +15,28 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "payment_method")
-public class PaymentMethod {
+@Table(name = "users")
+public class User {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "details")
-    String details;
+    @Column(name = "first_name")
+    String firstname;
+
+    @Column(name = "last_name")
+    String lastName;
+
+    @Column(name = "email")
+    String email;
 
     @Column(name = "created_at")
     LocalDateTime createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "type_id", referencedColumnName = "id")
-    PaymentType paymentType;
+    @Column(name = "client_id")
+    Long clientId;
 
-    @OneToOne(mappedBy = "paymentMethod")
-    PaymentTransaction transaction;
+    @OneToOne(mappedBy = "user")
+    Account account;
 }

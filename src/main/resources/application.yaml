@@ -46,3 +46,8 @@ app:
   email:
     subject: 'Прием у врача. Напоминание'
     template: mail-template
+
+client:
+  payment:
+    service:
+      url: http://localhost:8081

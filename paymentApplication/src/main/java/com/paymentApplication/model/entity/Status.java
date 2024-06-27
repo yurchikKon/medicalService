@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import static jakarta.persistence.GenerationType.IDENTITY;
+import java.util.List;
+
 import static lombok.AccessLevel.PRIVATE;
 
 @Data
@@ -14,16 +15,14 @@ import static lombok.AccessLevel.PRIVATE;
 @AllArgsConstructor
 @FieldDefaults(level = PRIVATE)
 @Entity
-@Table(name = "payment_type")
-public class PaymentType {
+public class Status {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "name", nullable = false)
     String name;
 
-    @OneToOne(mappedBy = "paymentType")
-    PaymentMethod paymentMethod;
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
+    List<PaymentTransaction> transaction;
 }
