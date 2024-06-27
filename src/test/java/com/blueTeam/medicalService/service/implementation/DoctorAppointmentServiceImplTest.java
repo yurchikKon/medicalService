@@ -6,6 +6,7 @@ import com.blueTeam.medicalService.entity.Doctor;
 import com.blueTeam.medicalService.entity.DoctorAppointment;
 import com.blueTeam.medicalService.entity.DoctorTimetable;
 import com.blueTeam.medicalService.entity.Patient;
+import com.blueTeam.medicalService.entity.enums.Notification;
 import com.blueTeam.medicalService.entity.enums.Status;
 import com.blueTeam.medicalService.exception.InvalidStateException;
 import com.blueTeam.medicalService.exception.ResourceAlreadyExistException;
@@ -163,6 +164,49 @@ class DoctorAppointmentServiceImplTest {
 
         assertThrows(InvalidStateException.class,
                 () -> doctorAppointmentService.cancelAppointment(APPOINTMENT_ID));
+    }
+
+    @Test
+    void getPlannedAppointmentsForNotification_ShouldReturnPlannedAppointments() {
+        var expectedAppointments = getExpectedAppointments();
+
+        when(doctorAppointmentRepository.findPlannedAppointments(Status.SCHEDULED, Notification.PLANED))
+                .thenReturn(expectedAppointments);
+
+        var actualAppointments = doctorAppointmentService.getPlannedAppointmentsForNotification();
+
+        assertEquals(expectedAppointments, actualAppointments);
+    }
+
+    @Test
+    void getPlannedAppointmentsForNotification_ShouldReturnEmptyListIfNoneFound() {
+        when(doctorAppointmentRepository.findPlannedAppointments(Status.SCHEDULED, Notification.PLANED)).thenReturn(null);
+
+        var actualAppointments = doctorAppointmentService.getPlannedAppointmentsForNotification();
+
+        assertEquals(Collections.emptyList(), actualAppointments);
+    }
+
+    @Test
+    void saveAllAppointments_ShouldReturnSavedAppointments() {
+        var expectedAppointments = getExpectedAppointments();
+        when(doctorAppointmentRepository.saveAll(expectedAppointments)).thenReturn(expectedAppointments);
+
+        var actualAppointments = doctorAppointmentService.saveAllAppointments(expectedAppointments);
+
+        assertEquals(expectedAppointments, actualAppointments);
+    }
+
+    private List<DoctorAppointment> getExpectedAppointments() {
+        DoctorAppointment appointment1 = new DoctorAppointment();
+        appointment1.setStatus(Status.SCHEDULED);
+        appointment1.setNotification(Notification.PLANED);
+
+        DoctorAppointment appointment2 = new DoctorAppointment();
+        appointment2.setStatus(Status.SCHEDULED);
+        appointment2.setNotification(Notification.PLANED);
+
+        return Arrays.asList(appointment1, appointment2);
     }
 
     private static List<DoctorAppointment> fillAppointmentList(LocalDate date) {
