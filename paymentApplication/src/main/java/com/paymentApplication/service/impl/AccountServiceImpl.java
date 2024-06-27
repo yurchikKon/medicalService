@@ -7,7 +7,6 @@ import com.paymentApplication.service.AccountService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -28,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional
     public void updateBalance(BigDecimal amount, Long id) {
         accountRepository.updateBalance(amount, id);
     }

@@ -11,7 +11,6 @@ import com.paymentApplication.service.PaymentTransactionService;
 import com.paymentApplication.service.exception.NotPositiveAccountBalanceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -30,7 +29,7 @@ public class PaymentTransactionalServiceImpl implements PaymentTransactionServic
     private final PaymentMethodMapper paymentMethodMapper;
 
     @Override
-    @Transactional(isolation = Isolation.READ_UNCOMMITTED, rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void transfer(TransferDto dto) {
         AccountDto sender = getClientAccount(dto.senderId());
         AccountDto receiver = getClientAccount(dto.receiverId());
