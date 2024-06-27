@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/doctorAppointments")
+@RequestMapping("api/v1/doctor-appointments")
 public class DoctorAppointmentController {
     private final DoctorAppointmentService doctorAppointmentService;
 
@@ -23,7 +23,8 @@ public class DoctorAppointmentController {
     }
 
     @GetMapping("/date/{date}")
-    public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(@PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<DoctorAppointmentRepresentationDto> getAllDoctorAppointments(
+            @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return doctorAppointmentService.getAllDoctorsAppointmentsByDate(date);
     }
     @PostMapping("/{patientId}/{doctorId}")

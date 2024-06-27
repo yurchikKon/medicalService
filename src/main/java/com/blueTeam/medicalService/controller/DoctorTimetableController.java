@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/doctorTimetables")
+@RequestMapping("api/v1/doctor-timetables")
 @Slf4j
 public class DoctorTimetableController {
     private final DoctorTimetableService doctorTimetableService;

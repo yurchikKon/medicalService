@@ -20,12 +20,12 @@ public class PatientController {
     private final PayReceiptService payReceiptService;
     private final PatientService patientService;
 
-    @GetMapping("/{patientId}/payReceipts")
+    @GetMapping("/{patientId}/pay-receipts")
     public List<PayReceiptDto> findAllPayReceiptsByPatientId(@PathVariable Long patientId) {
         return payReceiptService.findAllByPatientId(patientId);
     }
 
-    @GetMapping("/{patientId}/analysisDirections/valid")
+    @GetMapping("/{patientId}/analysis-directions/valid")
     public List<AnalysisDirectionDto> findActivePatientAnalysisDirections (@PathVariable Long patientId) {
         return patientService.findActivePatientAnalysisDirections(patientId);
     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/analysisDirections")
+@RequestMapping("api/v1/analysis-directions")
 public class AnalysisDirectionController {
     private final AnalysisDirectionService analysisDirectionService;
 
@@ -24,7 +24,7 @@ public class AnalysisDirectionController {
         return analysisDirectionService.changeResultsAnalysisDirection(id, newResult);
     }
 
-    @GetMapping("/patients/{id}/unused")
+    @GetMapping("/patients/{id}/used")
     public List<AnalysisDirectionNamedDto> getUsedAnalysisForPatient(@PathVariable Long id) {
         return analysisDirectionService.getUsedAnalysisRecords(id);
     }

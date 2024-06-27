@@ -45,13 +45,4 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper();
-    }
-
-    @Bean
-    public Jackson2ObjectMapperBuilderCustomizer customJackson() {
-        return builder -> builder.failOnUnknownProperties(false);
-    }
 }

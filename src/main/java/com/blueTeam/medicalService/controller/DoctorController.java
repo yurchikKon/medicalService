@@ -30,7 +30,7 @@ public class DoctorController {
     }
 
 
-    @GetMapping("/{doctorId}/doctorInfo")
+    @GetMapping("/{doctorId}/doctor-info")
     public DoctorRepresentationDto getDoctorInfoDto(@PathVariable Long doctorId) {
         return doctorService.getDoctorInfoDto(doctorId);
     }
