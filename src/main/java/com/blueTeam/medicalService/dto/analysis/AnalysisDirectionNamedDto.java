@@ -6,10 +6,8 @@ import com.blueTeam.medicalService.validation.group.CreateAction;
 import com.blueTeam.medicalService.validation.group.UpdateAction;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
 
-@Builder
-public record AnalysisDirectionDto(
+public record AnalysisDirectionNamedDto(
 
         @NotBlank(groups = {UpdateAction.class})
         Long id,
@@ -22,5 +20,8 @@ public record AnalysisDirectionDto(
                 max = 255,
                 groups = {CreateAction.class, UpdateAction.class}
         )
-        String result) {
+        String result,
+
+        @NotBlank(groups = {CreateAction.class, UpdateAction.class})
+        String name) {
 }
